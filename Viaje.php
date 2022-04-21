@@ -105,23 +105,35 @@ class Viaje{
      */
 
     public function agregarPasajero($viajante){
-        $arrayBruto=[];
-        $arrayBruto= $this->getColeccObjPasajero();
-        $error=true;
-        $i = 0;
-        while ($i < count($arrayBruto)){ 
-            $pasajero = $arrayBruto[$i];
-            $dniPasajeroArray = $pasajero->getDocumento();
-            $dniViajante = $viajante->getDocumento();
-            if ($dniPasajeroArray == $dniViajante){
-                $error = false;
-            }else{
-                array_push($arrayBruto, $viajante);
-                $this->setColeccObjPasajero($arrayBruto);
-            }
-            $i++;
+        $existe = $this->validarPasajero($viajante);
+        if(!$existe){
+            $arrayBruto= $this->getColeccObjPasajero();
+            array_push($arrayBruto, $viajante);
+            $this->setColeccObjPasajero($arrayBruto);
         }
-        return $error;
+    }    
+        
+
+    /**
+     * @param objeto $cliente
+     * @return bool
+     */
+
+    public function validarPasajero($cliente){
+        $colecObPasaj= $this->getColeccObjPasajero();
+        $dniCliente = $cliente->getDocumento();
+        $sacar = true;
+        $a=0;
+        while ($a <= count($colecObPasaj) && $sacar){
+            $pasajeroParticular =  $colecObPasaj[$a];
+            $dniPasajeroParticular = $pasajeroParticular->getDocumento();
+            if($dniPasajeroParticular == $dniCliente){
+                $sacar= false;
+            }
+            $a++;
+             
+        }
+        return $sacar;
     }
 
     //// MODIFICO DATOS DE LOS PASAJEROS ////
@@ -187,8 +199,6 @@ class Viaje{
 
     public function __toString(){
         $arrayPasajer = $this->getColeccObjPasajero();
-        print_r($arrayPasajer);
-        die();
         $todosLosViajeros= $this->datosPasajerosString();
         $info = "
         viaje:  {$this->getCodigoViaje()} .\n

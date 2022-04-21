@@ -21,6 +21,53 @@ if( $aswer == "S"){
     $objViaje->agregarPasajero($objPasajero1);
     $objViaje->agregarPasajero($objPasajero2);
     $objViaje->agregarPasajero($objPasajero3);
+    echo menu();
+    $viagiando= trim(fgets(STDIN));
+        switch ($viagiando){
+            
+                    case '1':
+                            // 1) Cargar un viaje 
+                            echo "Ingrese los datos correspondientes al viaje \n";
+                            echo "Ingrese el codigo del viaje: \n";
+                            $viajeCodigo= strtoupper(trim (fgets(STDIN)));
+                            echo "Ingrese el destino: \n";
+                            $lugarDestino= strtoupper(trim (fgets(STDIN)));
+                            echo "Ingrese la cantidad máxima de asientos: \n";
+                            $maxAsientos = trim (fgets(STDIN));
+                            echo "Ingrese la cantidad de asientos ocupados: \n";
+                            $asientosOcup = trim (fgets(STDIN));
+                            echo "Ingrese los datos del Responsable del viaje: \n ";
+                            $responsableViaje = crearResponsable();
+                            $objViaje = new Viaje($viajeCodigo,$lugarDestino,$maxAsientos, $asientosOcup, $responsableViaje);
+                            echo "Ingrese los datos de los pasajeros: \n";
+                            do{
+                                $continuacion=false;
+                                $persona=[];
+                                $persona=infoPasajero();
+                                $objViaje->agregarPasajero($persona);
+                                echo "Desea agregar un nuevo pasajero?: S o N \n";
+                                $seguimos=strtoupper(trim(fgets(STDIN)));
+                                if($seguimos=="S"){
+                                    $continuacion= true;
+                                }
+                            }while($continuacion);
+                                break;
+
+                    case '2':
+                            // 2) Modificar un viaje
+                            echo modificacionDatos($objViaje);
+                            break;                           
+
+                    case '3':
+                            // 3) Ver datos de un viaje
+                            echo $objViaje;
+                            break;
+
+                    default:
+                            $finish= false;
+                            break;
+        };
+    
 
 }else{
     $finish=true;
@@ -78,7 +125,7 @@ if( $aswer == "S"){
 
     function infoPasajero(){
         
-            $pasajero=[];
+            
             echo "Ingrese apellido: \n";
             $apellido= strtoupper(trim (fgets(STDIN)));
             echo "Ingrese nombre: \n";
@@ -87,7 +134,7 @@ if( $aswer == "S"){
             $dni= trim (fgets(STDIN));
             echo "Ingrese telefono celular: \n";
             $telefono= trim (fgets(STDIN));
-            $pasajero = new Pasajero($nombre,$apellido,$dni,$telefono);
+            $pasajero = new Pasajero($nombre,$apellido,$dni,$telefono);         
             return $pasajero;
     }
 
