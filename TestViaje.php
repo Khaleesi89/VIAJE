@@ -8,6 +8,13 @@ echo "--------- Viaje Feliz ----------\n";
 
 // MENU PRINCIPAL //
 
+echo "Desea ver un viaje anterior?: S o N \n";
+$aswer = strtoupper(trim (fgets(STDIN)));
+if( $aswer == "S"){
+    $objRespViaje = new ResponsableV(2, 3211123, 'Florencio', 'Golberg');
+    
+}
+
 $finish=true;
 do{
     
