@@ -72,7 +72,7 @@ if( $aswer == "S"){
                             break;
         };
     }while($finish);
-
+}
 
 /// PARA AGREGAR PASAJERO ////
 
@@ -115,7 +115,7 @@ if( $aswer == "S"){
             3) Ver datos de un viaje \n
             4) Salir\n";            
             
-    return $$menu;
+    return $menu;
     }
 
 
@@ -124,59 +124,60 @@ if( $aswer == "S"){
 
 function modificacionDatos($objeto){
 
-do{
-    $salida=true;
-    echo menuPunto2();
-    $eleccion2= trim (fgets(STDIN));
+        do{
+            $salida=true;
+            echo menuPunto2();
+            $eleccion2= trim (fgets(STDIN));
 
-    switch ($eleccion2){
-        case '1':
-            // Desea cambiar el código del viaje? //
-            echo "Ingrese el nuevo código: \n";
-            $newCod= strtoupper(trim (fgets(STDIN)));
-            $objeto->setCodigoViaje($newCod);
-            break;
-            
-        case '2':
-            // Desea cambiar el destino?  //
-            echo "Ingrese el nuevo destino: \n";
-            $newDestino= strtoupper(trim (fgets(STDIN)));
-            $objeto->setDestino($newDestino);
-            break;
+            switch ($eleccion2){
+                case '1':
+                    // Desea cambiar el código del viaje? //
+                    echo "Ingrese el nuevo código: \n";
+                    $newCod= strtoupper(trim (fgets(STDIN)));
+                    $objeto->setCodigoViaje($newCod);
+                    break;
+                    
+                case '2':
+                    // Desea cambiar el destino?  //
+                    echo "Ingrese el nuevo destino: \n";
+                    $newDestino= strtoupper(trim (fgets(STDIN)));
+                    $objeto->setDestino($newDestino);
+                    break;
 
-        case '3':
-                // Desea cambiar la cantidad de pasajeros que viajaron?  //
-                echo "Ingrese la nueva cantidad de pasajeros que viajaron: \n";
-                $modCantPasajeros =trim (fgets(STDIN));
-                $objeto->setCantPasajerosViaje($modCantPasajeros);
-        
-        case '4':
-            // Desea cambiar los datos de un pasajero?  //
-            $pasajeros = $objeto->getColeccObjPasajero();
-            $nuevoArrayObjPasajeros = datosNuevosPasajero($pasajeros);
-            $objeto->setColeccObjPasajero($nuevoArrayObjPasajeros);
-            break;
-    
-        case '5':
-            // Desea cambiar la capacidad máxima de pasajeros   //
+                case '3':
+                        // Desea cambiar la cantidad de pasajeros que viajaron?  //
+                        echo "Ingrese la nueva cantidad de pasajeros que viajaron: \n";
+                        $modCantPasajeros =trim (fgets(STDIN));
+                        $objeto->setCantPasajerosViaje($modCantPasajeros);
                 
-            echo "Ingrese el nuevo valor para la capacidad máxima: \n";
-            $capacidadNew=trim (fgets(STDIN));
-            $objeto->setCantMaxPasajeros($capacidadNew);
-            break;
+                case '4':
+                    // Desea cambiar los datos de un pasajero?  //
+                    $pasajeros = $objeto->getColeccObjPasajero();
+                    $nuevoArrayObjPasajeros = datosNuevosPasajero($pasajeros);
+                    $objeto->setColeccObjPasajero($nuevoArrayObjPasajeros);
+                    break;
+            
+                case '5':
+                    // Desea cambiar la capacidad máxima de pasajeros   //
+                        
+                    echo "Ingrese el nuevo valor para la capacidad máxima: \n";
+                    $capacidadNew=trim (fgets(STDIN));
+                    $objeto->setCantMaxPasajeros($capacidadNew);
+                    break;
 
-        case '6':
-            //Ver viaje //
-            echo $objeto;
-            break;
-    
-        default:
-            // Salir  //
-            $salida=false;
-            break;
-    }
+                case '6':
+                    //Ver viaje //
+                    echo $objeto;
+                    break;
+            
+                default:
+                    // Salir  //
+                    $salida=false;
+                    break;
+            }
 
-}while($salida);
+        }while($salida);
+}
 
 
 
@@ -211,5 +212,4 @@ do{
          $cambio = $objPasajeros->modificarViajeros($nombreNuevo,$apellidoNuevo, $nroDocume,$nroTelNuevo);
         return $cambio;
     }
-}
-}
+
