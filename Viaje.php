@@ -100,24 +100,26 @@ class Viaje{
     //AGREGO CADA PASAJERO AL ARRAY DEL ATRIBUTO
 
     /**
-     * @param array $viajante ['nombre'=>, 'apellido'=>, 'DNI'=>]
+     * @param objet $viajante 
      * @return void
      */
 
     public function agregarPasajero($viajante){
         $arrayBruto=[];
         $arrayBruto= $this->getColeccObjPasajero();
+        $error=true;
         for ($i=0; $i < count($arrayBruto) ; $i++) { 
             $pasajero = $arrayBruto[$i];
             $dniPasajeroArray = $pasajero->getDocumento();
             $dniViajante = $viajante->getDocumento();
             if ($dniPasajeroArray == $dniViajante){
-                
+                $error = false;
+            }else{
+                array_push($arrayBruto, $viajante);
+                $this->setColeccObjPasajero($arrayBruto);
             }
-            array_push($arrayBruto, $viajante);
-            $this->setColeccObjPasajero($arrayBruto);
         }
-        
+        return $error;
     }
 
     //// MODIFICO DATOS DE LOS PASAJEROS ////
