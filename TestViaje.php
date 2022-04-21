@@ -135,27 +135,28 @@ function modificacionDatos($objeto){
                     echo "Ingrese el nuevo código: \n";
                     $newCod= strtoupper(trim (fgets(STDIN)));
                     $objeto->setCodigoViaje($newCod);
-                    break;
+                break;
                     
                 case '2':
                     // Desea cambiar el destino?  //
                     echo "Ingrese el nuevo destino: \n";
                     $newDestino= strtoupper(trim (fgets(STDIN)));
                     $objeto->setDestino($newDestino);
-                    break;
+                break;
 
                 case '3':
                         // Desea cambiar la cantidad de pasajeros que viajaron?  //
                         echo "Ingrese la nueva cantidad de pasajeros que viajaron: \n";
                         $modCantPasajeros =trim (fgets(STDIN));
                         $objeto->setCantPasajerosViaje($modCantPasajeros);
+                break;
                 
                 case '4':
                     // Desea cambiar los datos de un pasajero?  //
                     $pasajeros = $objeto->getColeccObjPasajero();
                     $nuevoArrayObjPasajeros = datosNuevosPasajero($pasajeros);
                     $objeto->setColeccObjPasajero($nuevoArrayObjPasajeros);
-                    break;
+                break;
             
                 case '5':
                     // Desea cambiar la capacidad máxima de pasajeros   //
@@ -163,17 +164,17 @@ function modificacionDatos($objeto){
                     echo "Ingrese el nuevo valor para la capacidad máxima: \n";
                     $capacidadNew=trim (fgets(STDIN));
                     $objeto->setCantMaxPasajeros($capacidadNew);
-                    break;
+                break;
 
                 case '6':
                     //Ver viaje //
                     echo $objeto;
-                    break;
+                break;
             
                 default:
                     // Salir  //
                     $salida=false;
-                    break;
+                break;
             }
 
         }while($salida);
