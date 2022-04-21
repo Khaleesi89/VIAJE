@@ -100,7 +100,7 @@ class Viaje{
     //AGREGO CADA PASAJERO AL ARRAY DEL ATRIBUTO
 
     /**
-     * @param objet $viajante 
+     * @param objeto $viajante 
      * @return void
      */
 
