@@ -82,8 +82,10 @@ if( $aswer == "S"){
             echo "Ingrese nombre: \n";
             $nombre= strtoupper(trim (fgets(STDIN)));
             echo "Ingrese DNI: \n";
-            $dni= strtoupper(trim (fgets(STDIN)));
-            $pasajero = ['nombre'=>$nombre, 'apellido'=>$apellido, 'DNI'=>$dni];
+            $dni= trim (fgets(STDIN));
+            echo "Ingrese telefono celular: \n";
+            $telefono= trim (fgets(STDIN));
+            $pasajero = new Pasajero($nombre,$apellido,$dni,$telefono);
             return $pasajero;
     }
 

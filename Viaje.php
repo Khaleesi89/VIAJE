@@ -107,8 +107,17 @@ class Viaje{
     public function agregarPasajero($viajante){
         $arrayBruto=[];
         $arrayBruto= $this->getColeccObjPasajero();
-        array_push($arrayBruto, $viajante);
-        $this->setColeccObjPasajero($arrayBruto);
+        for ($i=0; $i < count($arrayBruto) ; $i++) { 
+            $pasajero = $arrayBruto[$i];
+            $dniPasajeroArray = $pasajero->getDocumento();
+            $dniViajante = $viajante->getDocumento();
+            if ($dniPasajeroArray == $dniViajante){
+                
+            }
+            array_push($arrayBruto, $viajante);
+            $this->setColeccObjPasajero($arrayBruto);
+        }
+        
     }
 
     //// MODIFICO DATOS DE LOS PASAJEROS ////
