@@ -121,6 +121,12 @@ if( $aswer == "S"){
 
 //// FUNCION PARA MODIFICAR DATOS ////
 
+/**
+ * @param obj $objeto
+ * @return void
+ */
+
+
 
 function modificacionDatos($objeto){
 
@@ -198,6 +204,10 @@ function modificacionDatos($objeto){
 
 
     //CARGAR DATOS PARA CAMBIAR EL PASAJERO
+    /**
+     * @param obj $objPasajeros
+     * return 
+     */
 
     function datosNuevosPasajero($objPasajeros){
 
