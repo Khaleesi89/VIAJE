@@ -129,7 +129,6 @@ class Viaje{
                 $sigue = false; // COMO ENCONTRE EL PASAJERO QUE QUIERO MODIFICAR CAMBIO EL VALOR DE VERDAD DE LA BANDERA
                 $pasajeroAbuscar->setNombre($nombrePasaj);
                 $pasajeroAbuscar->setApellido( $apellidoPasaj);
-                $pasajeroAbuscar->setDocumento($identidadDni);
                 $pasajeroAbuscar->setTelefono($phones);
                 $arrayParaBuscar[$i] = $pasajeroAbuscar;
         }   
