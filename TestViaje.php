@@ -118,22 +118,6 @@ if( $aswer == "S"){
     }
 
 
-/*///BUSCAR PASAJERO///
-
-function cargarPasajero(){
-        echo  "Nombre: \n";
-        $nomb = trim(fgets(STDIN));
-        echo  "Apellido:\n";
-        $apellid = trim(fgets(STDIN));
-        echo "DNI:\n";
-        $id = trim(fgets( STDIN ));
-        $gente=[];
-        $gente = array("nombre"=>$nomb ,"apellido"=>$apellid,"DNI"=>$id);
-        return $gente;
-}*/
-
-
-
 //// FUNCION PARA MODIFICAR DATOS ////
 
 
