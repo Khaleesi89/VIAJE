@@ -25,8 +25,8 @@ if( $aswer == "S"){
 }else{
     $finish=true;
     do{
-        
-        $viagiando= menu();
+        echo menu();
+        $viagiando= trim(fgets(STDIN));
         switch ($viagiando){
             
                     case '1':
