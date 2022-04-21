@@ -184,14 +184,14 @@ class Viaje{
     //// TOSTRING ////
 
     public function __toString(){
-        $arrayPasajer = $this->getColeccObjPasajero();
-        $todosLosViajeros= $arrayPasajer->datosPasajerosString();
+        //$arrayPasajer = $this->getColeccObjPasajero();
+        $todosLosViajeros= $this->datosPasajerosString();
         $info = "
-        viaje: . {$this->getCodigoViaje()} .\n
-        Destino: . {$this->getDestino()} .\n
+        viaje:  {$this->getCodigoViaje()} .\n
+        Destino:  {$this->getDestino()} .\n
         Responsable del viaje: {$this->getObjResponsable()}.\n
-        Cantidad Máxima de Pasajeros: . {$this->getCantMaxPasajeros()} . \n
-        Cantidad de Pasajeros: . {$this->getCantPasajerosViaje()} . \n;
+        Cantidad Máxima de Pasajeros: {$this->getCantMaxPasajeros()} . \n
+        Cantidad de Pasajeros: {$this->getCantPasajerosViaje()} . \n
         Datos de Pasajeros: 
         \n
         $todosLosViajeros";
