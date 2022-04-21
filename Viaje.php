@@ -101,7 +101,7 @@ class Viaje{
 
     /**
      * @param objeto $viajante 
-     * @return bool
+     * @return void
      */
 
     public function agregarPasajero($viajante){
@@ -111,7 +111,9 @@ class Viaje{
             array_push($arrayBruto, $viajante);
             $this->setColeccObjPasajero($arrayBruto);
         }
-    }    
+        
+    }  
+
         
 
     //VALIDO SI ESTÁ CARGADO ANTERIORMENTE  EL PASAJERO
