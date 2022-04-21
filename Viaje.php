@@ -101,7 +101,7 @@ class Viaje{
 
     /**
      * @param objeto $viajante 
-     * @return void
+     * @return bool
      */
 
     public function agregarPasajero($viajante){
@@ -124,9 +124,11 @@ class Viaje{
 
     //// MODIFICO DATOS DE LOS PASAJEROS ////
      /**
-     * @param array $pasaj ['nombre'=>, 'apellido'=>, 'DNI'=>]
-     * @param array $pasajOtro ['nombre'=>, 'apellido'=>, 'DNI'=>]
-     * @return void
+     * @param string $nombrePasaj
+     * @param string $apellidoPasaj
+     * @param int $identidadDni
+     * @param int $phones
+     * @return array
      */
     
     public function modificarViajeros($nombrePasaj, $apellidoPasaj, $identidadDni, $phones){

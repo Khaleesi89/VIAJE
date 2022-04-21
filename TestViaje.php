@@ -40,7 +40,7 @@ if( $aswer == "S"){
                             $maxAsientos = trim (fgets(STDIN));
                             echo "Ingrese la cantidad de asientos ocupados: \n";
                             $asientosOcup = trim (fgets(STDIN));
-                            echo "Ingrese los datos del Responsable del viaje: ";
+                            echo "Ingrese los datos del Responsable del viaje: \n ";
                             $responsableViaje = crearResponsable();
                             $objViaje = new Viaje($viajeCodigo,$lugarDestino,$maxAsientos, $asientosOcup, $responsableViaje);
                             echo "Ingrese los datos de los pasajeros: \n";
