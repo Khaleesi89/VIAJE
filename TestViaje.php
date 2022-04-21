@@ -109,16 +109,13 @@ if( $aswer == "S"){
 //// MENU PRINCIIPAL ////
 
     function menu(){
-        do{
-            echo "Ingrese una opción:\n\n
+            $menu= "Ingrese una opción:\n\n
             1) Cargar un viaje \n
             2) Modificar un viaje \n
             3) Ver datos de un viaje \n
-            4) Salir\n";
-            $respuesta =trim(fgets(STDIN));            
-             
-    }while (((is_int($respuesta))&&($respuesta < 0 || $respuesta < 4)));
-    return $respuesta;
+            4) Salir\n";            
+            
+    return $$menu;
     }
 
 
