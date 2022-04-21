@@ -105,7 +105,7 @@ do{
     }
 
 
-///BUSCAR PASAJERO///
+/*///BUSCAR PASAJERO///
 
 function cargarPasajero(){
         echo  "Nombre: \n";
@@ -117,7 +117,7 @@ function cargarPasajero(){
         $gente=[];
         $gente = array("nombre"=>$nomb ,"apellido"=>$apellid,"DNI"=>$id);
         return $gente;
-}
+}*/
 
 
 
@@ -154,15 +154,9 @@ do{
         
         case '4':
             // Desea cambiar los datos de un pasajero?  //
-            echo "Ingrese el numero de DNI del pasajero a modificar: ";
-            $nroDocume = strtoupper(trim (fgets(STDIN)));
-            echo "Ingrese el numero de DNI del pasajero a modificar: "
-            $nroDocume = strtoupper(trim (fgets(STDIN)))
-            echo "Ingrese el numero de DNI del pasajero a modificar: "
-            $nroDocume = strtoupper(trim (fgets(STDIN)))
-            echo "Ingrese los datos nuevos del pasajero \n";
-            $modificarPasajero2= cargarPasajero();
-            $objeto->modificarViajeros($modificarPasajero1,$modificarPasajero2);
+            $pasajeros = $objeto->getColeccObjPasajero();
+            $nuevoArrayObjPasajeros = datosNuevosPasajero($pasajeros);
+            $objeto->setColeccObjPasajero($nuevoArrayObjPasajeros);
             break;
     
         case '5':
@@ -205,7 +199,8 @@ do{
 
     //CARGAR DATOS PARA CAMBIAR EL PASAJERO
 
-    function datosNuevosPasajero(){
+    function datosNuevosPasajero($objPasajeros){
+
          
          echo "Ingrese el numero de DNI del pasajero a modificar: ";
          $nroDocume = trim (fgets(STDIN));
@@ -215,7 +210,7 @@ do{
          $apellidoNuevo = strtoupper(trim (fgets(STDIN)));
          echo "Ingrese el numero de telefono/celular del pasajero: ";
          $nroTelNuevo = trim (fgets(STDIN));
-         $cambio = $this->modificarViajeros($nombreNuevo,$apellidoNuevo, $nroDocume,$nroTelNuevo);
-
+         $cambio = $objPasajeros->modificarViajeros($nombreNuevo,$apellidoNuevo, $nroDocume,$nroTelNuevo);
+        return $cambio;
     }
 }
