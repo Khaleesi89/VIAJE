@@ -158,15 +158,12 @@ class Viaje{
      */
 
     public function datosPasajerosString(){
+        $colexionPasaj = $this->getColeccObjPasajero();
         $stringPasajeros="";
-        foreach($this->getColeccObjPasajero() as $key => $value){
-            $name= $value['nombre'];
-            $surname= $value['apellido'];
-            $dni= $value['DNI'];
-            $stringPasajeros.="
-            Nombre: $name \n
-            Apellido: $surname \n
-            DNI: $dni \n";
+        foreach($colexionPasaj as $key => $value){
+            $objPassenger = $value;
+            $strPasaj = $objPassenger->__toString();
+            $stringPasajeros.=$strPasaj;
         }
         return $stringPasajeros;
     }
@@ -187,10 +184,12 @@ class Viaje{
     //// TOSTRING ////
 
     public function __toString(){
-        $todosLosViajeros= $this->datosPasajerosString();
-        $info="
+        $arrayPasajer = $this->getColeccObjPasajero();
+        $todosLosViajeros= $arrayPasajer->datosPasajerosString();
+        $info = "
         viaje: . {$this->getCodigoViaje()} .\n
         Destino: . {$this->getDestino()} .\n
+        Responsable del viaje: {$this->getObjResponsable()}.\n
         Cantidad Máxima de Pasajeros: . {$this->getCantMaxPasajeros()} . \n
         Cantidad de Pasajeros: . {$this->getCantPasajerosViaje()} . \n;
         Datos de Pasajeros: 
