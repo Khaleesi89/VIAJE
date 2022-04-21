@@ -97,7 +97,7 @@ class Viaje{
 
     ////////////////////////////////
 
-    //AGREGO CADA PASAJERO AL ARRAY DEL ATRIBUTO
+    //AGREGO CADA PASAJERO A LA COLECCIONN DE PASAJEROS
 
     /**
      * @param objeto $viajante 
@@ -114,6 +114,7 @@ class Viaje{
     }    
         
 
+    //VALIDO SI ESTÁ CARGADO ANTERIORMENTE  EL PASAJERO
     /**
      * @param objeto $cliente
      * @return bool
