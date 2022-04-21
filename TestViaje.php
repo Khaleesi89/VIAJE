@@ -1,6 +1,8 @@
 <?php
 
-include 'Viaje.php';
+include "Viaje.php";
+include "ResponsableV.php";
+include "Pasajero.php";
 
 echo "--------- Viaje Feliz ----------\n";
 
