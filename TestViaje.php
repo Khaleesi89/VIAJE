@@ -126,8 +126,6 @@ if( $aswer == "S"){
  * @return void
  */
 
-
-
 function modificacionDatos($objeto){
 
         do{
@@ -210,8 +208,7 @@ function modificacionDatos($objeto){
      */
 
     function datosNuevosPasajero($objPasajeros){
-
-         
+  
          echo "Ingrese el numero de DNI del pasajero a modificar: ";
          $nroDocume = trim (fgets(STDIN));
          echo "Ingrese el nombre del pasajero: ";
