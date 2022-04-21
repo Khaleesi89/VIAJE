@@ -108,7 +108,8 @@ class Viaje{
         $arrayBruto=[];
         $arrayBruto= $this->getColeccObjPasajero();
         $error=true;
-        for ($i=0; $i < count($arrayBruto) ; $i++) { 
+        $i = 0;
+        while ($i < count($arrayBruto)){ 
             $pasajero = $arrayBruto[$i];
             $dniPasajeroArray = $pasajero->getDocumento();
             $dniViajante = $viajante->getDocumento();
@@ -118,6 +119,7 @@ class Viaje{
                 array_push($arrayBruto, $viajante);
                 $this->setColeccObjPasajero($arrayBruto);
             }
+            $i++;
         }
         return $error;
     }
@@ -184,7 +186,9 @@ class Viaje{
     //// TOSTRING ////
 
     public function __toString(){
-        //$arrayPasajer = $this->getColeccObjPasajero();
+        $arrayPasajer = $this->getColeccObjPasajero();
+        print_r($arrayPasajer);
+        die();
         $todosLosViajeros= $this->datosPasajerosString();
         $info = "
         viaje:  {$this->getCodigoViaje()} .\n
