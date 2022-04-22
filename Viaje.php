@@ -104,12 +104,28 @@ class Viaje{
      * @return void
      */
 
-    public function agregarPasajero($viajante){
+    /*public function agregarPasajero($viajante){
         $existe = $this->validarPasajero($viajante);
         if(!$existe){
             $arrayBruto= $this->getColeccObjPasajero();
             array_push($arrayBruto, $viajante);
             $this->setColeccObjPasajero($arrayBruto);
+        }
+        
+    }*/ 
+
+
+    public function agregarPasajero($viajante){
+        $arrayBruto =$this->getColeccObjPasajero();
+        $cantObjetos = count ($arrayBruto);
+        if($cantObjetos == 0){
+            $arrayBruto[0] = $viajante;
+        }else{
+        $existe = $this->validarPasajero($viajante);
+        if(!$existe){
+            array_push($arrayBruto, $viajante);
+            $this->setColeccObjPasajero($arrayBruto);
+        }
         }
         
     }  
@@ -173,6 +189,10 @@ class Viaje{
    
     //// ARMO UN STRING CON LOS DATOS DE LOS PASAJEROS ////
 
+
+
+    //PROBE TRES COSAS Y SIGUE SIN APARECER LOS DATOS DE PASAJEROS
+
     /**
      * @param void
      * @return string 
@@ -180,13 +200,27 @@ class Viaje{
 
 
     private function datosPasajerosString(){
-        $colexionPasaj = $this->getColeccObjPasajero();
+        $personas=[];
+        $personas=$this->getColeccObjPasajero();
+        $stringPasajeros="";
+        for ($i=0; $i < count($personas) ; $i++) { 
+            $stringPasajeros.=$personas[$i];
+        }
+        return $stringPasajeros;
+    }
+        
+        
+        
+        
+        
+        
+        /*$colexionPasaj = $this->getColeccObjPasajero();
         $stringPasajeros="";
         foreach($colexionPasaj as $pasajero){
             $stringPasajeros.=$pasajero."\n";
         }
         return $stringPasajeros;
-    }
+    }*/
 
     /*public function datosPasajerosString(){
         $colexionPasaj = $this->getColeccObjPasajero();
