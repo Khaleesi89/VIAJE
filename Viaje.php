@@ -178,7 +178,17 @@ class Viaje{
      * @return string 
      */
 
-    public function datosPasajerosString(){
+
+    private function datosPasajerosString(){
+        $colexionPasaj = $this->getColeccObjPasajero();
+        $stringPasajeros="";
+        foreach($colexionPasaj as $pasajero){
+            $stringPasajeros.=$pasajero."\n";
+        }
+        return $stringPasajeros;
+    }
+
+    /*public function datosPasajerosString(){
         $colexionPasaj = $this->getColeccObjPasajero();
         $stringPasajeros="";
         foreach($colexionPasaj as $key => $value){
@@ -187,7 +197,7 @@ class Viaje{
             $stringPasajeros.=$strPasaj;
         }
         return $stringPasajeros;
-    }
+    }*/
 
     /// CANTIDAD DE PASAJEROS ////
     
