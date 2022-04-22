@@ -120,6 +120,7 @@ class Viaje{
         $cantObjetos = count($arrayBruto);
         if($cantObjetos == 0){
             $arrayBruto[0] = $viajante;
+            $this->setColeccObjPasajero($arrayBruto);
         }else{
         $existe = $this->validarPasajero($viajante);
         if(!$existe){
