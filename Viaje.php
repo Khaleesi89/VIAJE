@@ -183,8 +183,7 @@ class Viaje{
         $colexionPasaj = $this->getColeccObjPasajero();
         $stringPasajeros="";
         foreach($colexionPasaj as $pasajero){
-            $strPasaj= $pasajero;
-            $stringPasajeros.=$strPasaj->__toString()."\n";
+            $stringPasajeros.=$pasajero."\n";
         }
         return $stringPasajeros;
     }
