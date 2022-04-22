@@ -124,16 +124,20 @@ class Viaje{
 
     public function validarPasajero($cliente){
         $colecObPasaj= $this->getColeccObjPasajero();
+        $tieneOnoObjetos = count($colecObPasaj);
         $dniCliente = $cliente->getDocumento();
         $sacar = true;
         $a=0;
-        while ($a <= count($colecObPasaj) && $sacar){
-            $pasajeroParticular =  $colecObPasaj[$a];
-            $dniPasajeroParticular = $pasajeroParticular->getDocumento();
-            if($dniPasajeroParticular == $dniCliente){
-                $sacar= false;
+        if($tieneOnoObjetos > 0){
+            while ($a <= $tieneOnoObjetos && $sacar){
+                $pasajeroParticular =  $colecObPasaj[$a];
+                $dniPasajeroParticular = $pasajeroParticular->getDocumento();
+                if($dniPasajeroParticular == $dniCliente){
+                    $sacar= false;
+                }
+                $a++;
+                  
             }
-            $a++;
              
         }
         return $sacar;
