@@ -53,7 +53,8 @@ class Aereos extends Viaje{
 
 
     public function __toString(){
-        $info = "
+        $info = parent::__toString();
+        $info .= "
         NUMERO DE VUELO: {$this->getNroVuelo()}
         CATEGORIA DE ASIENTO: {$this->getCategoriaAsiento()}
         AEROLINEAS: {$this-> getAerolinea()}
