@@ -10,8 +10,8 @@ class Aereos extends Viaje{
     private $cantEscalas;
 
 
-    public function __construct($codigoViaje , $lugarDestino , $maximoPasajeros, $totalPersonasViajan, $administradorViaje, $vuelo, $asientoCat,$airlineas,$escalas){
-        parent::__construct($codigoViaje , $lugarDestino , $maximoPasajeros, $totalPersonasViajan, $administradorViaje);
+    public function __construct($codigoViaje , $lugarDestino , $maximoPasajeros, $totalPersonasViajan, $administradorViaje, $valorPasaje, $esIdaOesVuelta, $vuelo, $asientoCat,$airlineas,$escalas){
+        parent::__construct($codigoViaje , $lugarDestino , $maximoPasajeros, $totalPersonasViajan, $administradorViaje,$valorPasaje,$esIdaOesVuelta);
         $this->nroVuelo = $vuelo;
         $this->categoriaAsiento = $asientoCat;
         $this->aerolinea = $airlineas;

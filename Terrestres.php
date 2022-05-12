@@ -7,8 +7,8 @@ class Terrestres extends Viaje{
     private $comodidadAsiento;
 
 
-    public function __construct($idViaje , $lugarArribo , $maxPasaj, $personasQviajaron, $responsableViajen, $asientoComodidad){
-        parent::__construct($idViaje , $lugarArribo , $maxPasaj, $personasQviajaron, $responsableViajen);
+    public function __construct($idViaje , $lugarArribo , $maxPasaj, $personasQviajaron, $responsableViajen, $valorPasaje,$esIdaOesVuelta, $asientoComodidad){
+        parent::__construct($idViaje , $lugarArribo , $maxPasaj, $personasQviajaron, $responsableViajen,$valorPasaje,$esIdaOesVuelta,$valorPasaje,$esIdaOesVuelta);
         $this->comodidadAsiento = $asientoComodidad;
     }
 
@@ -23,7 +23,8 @@ class Terrestres extends Viaje{
     }
 
     public function __toString(){
-        $info= "
+        $info = parent::__toString();
+        $info .= "
         COMODIDAD DEL ASIENTO: {$this->getComodidadAsiento()}
         ";
         return $info;

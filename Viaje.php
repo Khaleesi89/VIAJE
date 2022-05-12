@@ -28,14 +28,22 @@ class Viaje{
     //responsable del viaje//
     private $objResponsable;
 
+    //importe //
+    private $importe;
+
+    //si es ida y/o vuelta//
+    private $idaOvuelta;
+
 
     //// CONSTRUCTOR ////
-    public function __construct($codViagem , $destiny , $cantMaxPasaj, $cantidadGenteEnBus, $responsable){
+    public function __construct($codViagem , $destiny , $cantMaxPasaj, $cantidadGenteEnBus, $responsable,$valorPasaje,$esIdaOesVuelta){
         $this->codigoViaje = $codViagem;
         $this->destino = $destiny;
         $this->cantMaxPasajeros = $cantMaxPasaj;
         $this->cantPasajerosViaje = $cantidadGenteEnBus;
         $this->objResponsable = $responsable;
+        $this->importe = $valorPasaje;
+        $this->idaOvuelta = $esIdaOesVuelta;
            
     }   
 
@@ -96,6 +104,24 @@ class Viaje{
     }
 
     ////////////////////////////////
+
+    public function getImporte(){
+        return $this->importe;
+    }
+
+    public function setImporte($valorPasaje){
+        $this->importe = $valorPasaje;
+    }
+
+     ////////////////////////////////
+
+    public function getIdaOvuelta(){
+        return $this->idaOvuelta;
+    }
+
+    public function setIdaOvuelta($esIdaOesVuelta){
+        $this->idaOvuelta = $esIdaOesVuelta;
+    }
 
     //AGREGO CADA PASAJERO A LA COLECCIONN DE PASAJEROS
 
@@ -295,6 +321,8 @@ class Viaje{
      //  vuelta, se incrementa el importe del viaje un 50%. El método retorna el importe del pasaje si se pudo realizar la venta.
      //Implemente la función hayPasajesDisponible() que retorna verdadero si la cantidad de pasajeros del viaje es menor a la cantidad 
      //máxima de pasajeros y falso caso contrario 
+
+    
 
     
 }
