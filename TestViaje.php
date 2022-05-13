@@ -14,7 +14,7 @@ echo "Desea usar un viaje anterior?: S o N \n";
 $aswer = strtoupper(trim (fgets(STDIN)));
 if( $aswer == "S"){
     $objRespViaje = new ResponsableV(2, 3211123, 'Florencio', 'Golberg');
-    $objViaje = new Viaje(23,'Traful',30,12, $objRespViaje);
+    $objViaje = new Viaje(23,'Traful',30,12, $objRespViaje, 34443,"ida");
     $objPasajero1 = new Pasajero('Maria', 'Kalauz', 34444332, 299443232);
     $objPasajero2 = new Pasajero('Francisco', 'Klimisch', 1222112, 2994896552);
     $objPasajero3 = new Pasajero('Dominga', 'Cena', 456333, 2984426082);
@@ -38,7 +38,11 @@ if( $aswer == "S"){
                             $asientosOcup = trim (fgets(STDIN));
                             echo "Ingrese los datos del Responsable del viaje: \n ";
                             $responsableViaje = crearResponsable();
-                            $objViaje = new Viaje($viajeCodigo,$lugarDestino,$maxAsientos, $asientosOcup, $responsableViaje);
+                            echo "Ingrese el valor del viaje: \n ";
+                            $valorImporte = trim (fgets(STDIN));
+                            echo "Ingrese si es ida y vuelta o ida o vuelta: \n ";
+                            $idaOvueltita = trim (fgets(STDIN));
+                            $objViaje = new Viaje($viajeCodigo,$lugarDestino,$maxAsientos, $asientosOcup, $responsableViaje,$valorImporte,$idaOvueltita);
                             echo "Ingrese los datos de los pasajeros: \n";
                             do{
                                 $continuacion=false;
@@ -89,7 +93,11 @@ if( $aswer == "S"){
                             $asientosOcup = trim (fgets(STDIN));
                             echo "Ingrese los datos del Responsable del viaje: \n ";
                             $responsableViaje = crearResponsable();
-                            $objViaje = new Viaje($viajeCodigo,$lugarDestino,$maxAsientos, $asientosOcup, $responsableViaje);
+                            echo "Ingrese el valor del viaje: \n ";
+                            $valorImporte = trim (fgets(STDIN));
+                            echo "Ingrese si es ida y vuelta o ida o vuelta: \n ";
+                            $idaOvueltita = trim (fgets(STDIN));
+                            $objViaje = new Viaje($viajeCodigo,$lugarDestino,$maxAsientos, $asientosOcup, $responsableViaje,$valorImporte, $idaOvueltita);
                             echo "Ingrese los datos de los pasajeros: \n";
                             do{
                                 $continuacion=false;
