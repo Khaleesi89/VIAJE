@@ -8,15 +8,18 @@ class Aereos extends Viaje{
     private $categoriaAsiento;
     private $aerolinea;
     private $cantEscalas;
+    private $importe;
+    private $idaOvuelta;
 
 
-    public function __construct($codigoViaje , $lugarDestino , $maximoPasajeros, $totalPersonasViajan, $administradorViaje, $valorPasaje, $esIdaOesVuelta, $vuelo, $asientoCat,$airlineas,$escalas){
-        parent::__construct($codigoViaje , $lugarDestino , $maximoPasajeros, $totalPersonasViajan, $administradorViaje,$valorPasaje,$esIdaOesVuelta);
+    public function __construct($codigoViaje , $lugarDestino , $maximoPasajeros, $totalPersonasViajan, $administradorViaje, $vuelo, $asientoCat,$airlineas,$escalas, $valorVuelo,$tipoDeTrayecto){
+        parent::__construct($codigoViaje , $lugarDestino , $maximoPasajeros, $totalPersonasViajan, $administradorViaje);
         $this->nroVuelo = $vuelo;
         $this->categoriaAsiento = $asientoCat;
         $this->aerolinea = $airlineas;
         $this->cantEscalas = $escalas;
-        
+        $this->importe = $valorVuelo;
+        $this->idaOvuelta = $tipoDeTrayecto;
     }
 
     public function getNroVuelo(){
@@ -51,6 +54,21 @@ class Aereos extends Viaje{
         $this->cantEscalas = $escalas;
     }
 
+    public function getImporte(){
+        return $this->importe;
+    }
+
+    public function setImporte($valorVuelo){
+        $this->importe = $valorVuelo;
+    }
+
+    public function getIdaOvuelta(){
+        return $this->idaOvuelta;
+    }
+
+    public function setIdaOvuelta($tipoDeTrayecto){
+        $this->idaOvuelta = $tipoDeTrayecto;
+    }
 
     public function __toString(){
         $info = parent::__toString();
@@ -59,8 +77,42 @@ class Aereos extends Viaje{
         CATEGORIA DE ASIENTO: {$this->getCategoriaAsiento()}
         AEROLINEAS: {$this-> getAerolinea()}
         ESCALAS: {$this->getCantEscalas()}
+        IMPORTE: {$this->getImporte()}
+        ES IDA O VUELTA O IDA Y VUELTA:  {$this->getIdaOvuelta()}
         ";
         return $info;
         
     }
+
+
+        //CALCULAR LOS IMPORTES
+
+        /*Si el viaje es aéreo y el asiento es primera clase sin escalas, se incrementa un 40%, si el viaje además de ser un asiento de 
+        primera clase, el vuelo tiene escalas se incrementa el importe del viaje un 60%. Tanto para viajes terrestres o aéreos,
+            si el viaje es ida y vuelta, se incrementa el importe del viaje un 50%.*/
+
+        public function calcularImporteViaje(){
+                $importe = $this->getImporte();
+                $valor = $this->getImporte();
+                $asiento = $this->getCategoriaAsiento();
+                $escalits = $this->getCantEscalas();
+                $trayecto = $this->getIdaOvuelta();
+                if($asiento == "PC"){
+                        if($escalits == 0){
+                            $importe = $valor + (($valor*40)/100);
+                            $this->setImporte($importe);
+                        }else{
+                            $importe = $valor + (($valor*60)/100);
+                            $this->setImporte($importe);
+                        }
+                        if($trayecto == "IyV"){
+                                $importe = $valor + (($valor*50)/100);
+                                $this->setImporte($importe);
+                        }
+                }
+                return $importe;  ///ver pque pasaria con los pasajes normales----
+        }
 }
+
+        
+

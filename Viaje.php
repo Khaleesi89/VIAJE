@@ -28,22 +28,17 @@ class Viaje{
     //responsable del viaje//
     private $objResponsable;
 
-    //importe //
-    private $importe;
 
-    //si es ida y/o vuelta//
-    private $idaOvuelta;
 
 
     //// CONSTRUCTOR ////
-    public function __construct($codViagem , $destiny , $cantMaxPasaj, $cantidadGenteEnBus, $responsable,$valorPasaje,$esIdaOesVuelta){
+    public function __construct($codViagem , $destiny , $cantMaxPasaj, $cantidadGenteEnBus, $responsable){
         $this->codigoViaje = $codViagem;
         $this->destino = $destiny;
         $this->cantMaxPasajeros = $cantMaxPasaj;
         $this->cantPasajerosViaje = $cantidadGenteEnBus;
         $this->objResponsable = $responsable;
-        $this->importe = $valorPasaje;
-        $this->idaOvuelta = $esIdaOesVuelta;
+        
            
     }   
 
@@ -103,43 +98,8 @@ class Viaje{
         $this->objResponsable = $responsable;
     }
 
-    ////////////////////////////////
-
-    public function getImporte(){
-        return $this->importe;
-    }
-
-    public function setImporte($valorPasaje){
-        $this->importe = $valorPasaje;
-    }
-
-     ////////////////////////////////
-
-    public function getIdaOvuelta(){
-        return $this->idaOvuelta;
-    }
-
-    public function setIdaOvuelta($esIdaOesVuelta){
-        $this->idaOvuelta = $esIdaOesVuelta;
-    }
-
-    //AGREGO CADA PASAJERO A LA COLECCIONN DE PASAJEROS
-
-    /**
-     * @param objeto $viajante 
-     * @return void
-     */
-
-    /*public function agregarPasajero($viajante){
-        $existe = $this->validarPasajero($viajante);
-        if(!$existe){
-            $arrayBruto= $this->getColeccObjPasajero();
-            array_push($arrayBruto, $viajante);
-            $this->setColeccObjPasajero($arrayBruto);
-        }
-        
-    }*/ 
-
+   
+   //AGREGAR PSAJERO
 
     public function agregarPasajero($viajante){
         $arrayBruto =$this->getColeccObjPasajero();
@@ -185,26 +145,6 @@ class Viaje{
     }
 
 
-    /*public function validarPasajero($cliente){
-        $colecObPasaj= $this->getColeccObjPasajero();
-        $tieneOnoObjetos = count($colecObPasaj);
-        $dniCliente = $cliente->getDocumento();
-        $sacar = true;
-        $a=0;
-        if($tieneOnoObjetos > 0){
-            while ($a <= $tieneOnoObjetos && $sacar){
-                $pasajeroParticular =  $colecObPasaj[$a];
-                $dniPasajeroParticular = $pasajeroParticular->getDocumento();
-                if($dniPasajeroParticular == $dniCliente){
-                    $sacar= false;
-                }
-                $a++;
-                  
-            }
-             
-        }
-        return $sacar;
-    }*/
 
     //// MODIFICO DATOS DE LOS PASAJEROS ////
      /**
@@ -259,27 +199,6 @@ class Viaje{
         
         
         
-        
-        
-        /*$colexionPasaj = $this->getColeccObjPasajero();
-        $stringPasajeros="";
-        foreach($colexionPasaj as $pasajero){
-            $stringPasajeros.=$pasajero."\n";
-        }
-        return $stringPasajeros;
-    }*/
-
-    /*public function datosPasajerosString(){
-        $colexionPasaj = $this->getColeccObjPasajero();
-        $stringPasajeros="";
-        foreach($colexionPasaj as $key => $value){
-            $objPassenger = $value;
-            $strPasaj = $objPassenger->__toString();
-            $stringPasajeros.=$strPasaj;
-        }
-        return $stringPasajeros;
-    }*/
-
     /// CANTIDAD DE PASAJEROS ////
     
     /**
@@ -304,8 +223,6 @@ class Viaje{
         Responsable del viaje: {$this->getObjResponsable()}.\n
         Cantidad Máxima de Pasajeros: {$this->getCantMaxPasajeros()} . \n
         Cantidad de Pasajeros: {$this->getCantPasajerosViaje()} . \n
-        Importe: {$this->getImporte()} . \n
-        El viaje es ida o vuelta o ida-vuelta?: {$this->getIdaOvuelta()} . \n
         Datos de Pasajeros: 
         \n
         $todosLosViajeros";
@@ -321,10 +238,43 @@ class Viaje{
      // Si el viaje es aéreo y el asiento es primera clase sin escalas, se incrementa un 40%, si el viaje además de ser un asiento de primera
      //   clase, el vuelo tiene escalas se incrementa el importe del viaje un 60%. Tanto para viajes terrestres o aéreos, si el viaje es ida y 
      //  vuelta, se incrementa el importe del viaje un 50%. El método retorna el importe del pasaje si se pudo realizar la venta.
+     
+
+
+
+     //PARA VERIFICAR SI HAY PASAJES DISPONIBLES
      //Implemente la función hayPasajesDisponible() que retorna verdadero si la cantidad de pasajeros del viaje es menor a la cantidad 
      //máxima de pasajeros y falso caso contrario 
 
-    
+
+     public function hayPasajesDisponible(){
+         $cantidadMaxima = $this->getCantMaxPasajeros();
+         $cantPasajerosActuales = $this->getCantPasajerosViaje();
+         $hay = false;
+         if($cantPasajerosActuales < $cantidadMaxima){
+            $hay = true;
+         }
+         return $hay;
+     }
+
+
+    // FUNCION PARA CREAR UNA NUEVA VENTA DE PASAJE
+
+    /*La empresa ahora necesita implementar la venta de un pasaje,para ello debe realizar la función venderPasaje(pasajero) que 
+    registra la venta de un viaje al pasajero que es recibido por parámetro. La venta se realiza solo si hayPasajesDisponible. 
+    Si el viaje es terrestre y el asiento es cama, se incrementa el importe un 25%. 
+    Si el viaje es aéreo y el asiento es primera clase sin escalas, se incrementa un 40%, 
+    si el viaje además de ser un asiento de primera clase, el vuelo tiene escalas se incrementa el importe del viaje un 60%. 
+    Tanto para viajes terrestres o aéreos, si el viaje es ida y vuelta, se incrementa el importe del viaje un 50%.
+    El método retorna el importe del pasaje si se pudo realizar la venta. */
+
+    public function venderPasaje($pasajero){
+        $hayPasaje = $this->hayPasajesDisponible();
+        if($hayPasaje){
+
+        }
+
+    }
 
     
 }
