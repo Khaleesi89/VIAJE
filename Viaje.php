@@ -28,8 +28,7 @@ class Viaje{
     //responsable del viaje//
     private $objResponsable;
 
-
-
+   
 
     //// CONSTRUCTOR ////
     public function __construct($codViagem , $destiny , $cantMaxPasaj, $cantidadGenteEnBus, $responsable){

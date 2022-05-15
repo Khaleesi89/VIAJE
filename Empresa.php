@@ -2,43 +2,67 @@
 
 
 class Empresa{
-    private $objViajes = [];
+    private $objViajesAereos = [];
+    private $objViajesTerrestres= [];
 
 
-    public function __construct($arrayViajes){
-        $this->objViajes = $arrayViajes;
+
+    public function __construct($arrayViajesAereos,$arrayViajesTerrestres){
+        $this->objViajesAereos = $arrayViajesAereos;
+        $this->objViajesTerrestres = $arrayViajesTerrestres;
     }
     
-    public function getObjViajes(){
-        return $this->objViajes;
+    public function getObjViajesAereos(){
+        return $this->objViajesAereos;
     }
 
-    public function setObjViajes($arrayViajes){
-        $this->objViajes = $arrayViajes;
+    public function setObjViajesAereos($arrayViajesAereos){
+        $this->objViajesAereos = $arrayViajesAereos;
+    }
+
+    public function getObjViajesTerrestres(){
+        return $this->objViajesTerrestres;
+    }
+
+    public function setObjViajesTerrestres($arrayViajesTerrestres){
+        $this->objViajesTerrestres = $arrayViajesTerrestres;
     }
 
     //FUNCION PARA MOSTRAR LOS VIAJES
 
-
-
-    private function mostrarViajes(){
+    private function mostrarViajesAereos(){
         $viajecitos=[];
-        $viajecitos=$this->getObjViajes();
-        $stringViajes="";
+        $viajecitos=$this->getObjViajesAereos();
+        $stringViajesAereos="";
         for ($i=0; $i < count($viajecitos) ; $i++) { 
-            $stringViajes.=$viajecitos[$i];
+            $stringViajesAereos.=$viajecitos[$i];
+        }
+        return $stringViajes;
+    }
+        
+    private function mostrarViajesTerrestres(){
+        $viajecitos=[];
+        $viajecitos=$this->getObjViajesTerrestres();
+        $stringViajesTerrestres="";
+        for ($i=0; $i < count($viajecitos) ; $i++) { 
+            $stringViajesTerrestres.=$viajecitos[$i];
         }
         return $stringViajes;
     }
         
 
     public function __toString(){
-        $array = $this->mostrarViajes();
+        $arrayAereos = $this->mostrarViajesAereos();
+        $arrayTerrestres = $this->mostrarViajesTerrestres();
         $info = "
         ***************************
-        Viajes
+        Viajes AEREOS
         ***************************
-        $array
+        $arrayAereos \n
+        ***************************
+        Viajes TERRESTRES
+        ***************************
+        $arrayTerrestres 
         ";
         return $info;
     }
@@ -54,26 +78,36 @@ class Empresa{
     El método retorna el importe del pasaje si se pudo realizar la venta. */
 
 
-}
+    public function venderPasaje($pasajero){
+        $viajes = $this->getObjViajes();
+        $i = 0;
+        $salir = true;
+        while($i< count($viajes) && $salir){
+            $viajeParticular = $viajes[$i];
+            $hay = $viajeParticular->hayPasajesDisponible();
+            if($hay){
 
-
-
-
-
-
-
-
-
-
-
-
-
-public function venderPasaje($pasajero){
-    $hayPasaje = $this->hayPasajesDisponible();
-    if($hayPasaje){
-
+            }
+            
+            
+            
+            $i++
+        } 
     }
 
 
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
