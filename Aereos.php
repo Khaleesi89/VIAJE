@@ -84,7 +84,6 @@ class Aereos extends Viaje{
         
     }
 
-
         //CALCULAR LOS IMPORTES
 
         /*Si el viaje es aéreo y el asiento es primera clase sin escalas, se incrementa un 40%, si el viaje además de ser un asiento de 

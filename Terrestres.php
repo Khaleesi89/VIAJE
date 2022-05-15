@@ -42,9 +42,7 @@ class Terrestres extends Viaje{
         $this->idaOvueltas = $idaYoVuelta;
     }
 
-
-
-
+    //FUNCION TO STRING//
 
     public function __toString(){
         $info = parent::__toString();
@@ -89,7 +87,7 @@ class Terrestres extends Viaje{
     si el viaje además de ser un asiento de primera clase, el vuelo tiene escalas se incrementa el importe del viaje un 60%. 
     Tanto para viajes terrestres o aéreos, si el viaje es ida y vuelta, se incrementa el importe del viaje un 50%.
     El método retorna el importe del pasaje si se pudo realizar la venta. */
-    
+
     public function venderPasaje($pasajero){
         $hay = parent::hayPasajesDisponible();
         if($hay){
