@@ -3,6 +3,8 @@
 include "Viaje.php";
 include "ResponsableV.php";
 include "Pasajero.php";
+include "Aereos.php";
+include "Terrestres.php";
 
 echo "--------- Viaje Feliz ----------\n";
 
@@ -14,13 +16,23 @@ echo "Desea usar un viaje anterior?: S o N \n";
 $aswer = strtoupper(trim (fgets(STDIN)));
 if( $aswer == "S"){
     $objRespViaje = new ResponsableV(2, 3211123, 'Florencio', 'Golberg');
-    $objViaje = new Viaje(23,'Traful',30,12, $objRespViaje, 34443,"ida");
+    $objRespViaje2 = new ResponsableV(3, 122221, 'Roberto', 'Klimisch');
+
+    $aereo = new Aereos (23,'Traful',30,12, $objRespViaje, "Air232","PC","Aerolineas Argentinas",0,12222,"IyV");
+    $aereo2 = new Aereos (2,'Barcelona',150,120, $objRespViaje, "FlixAir2","PC","Latam",4,144432,"I");
+    
+    $tierra1 = new Terrestres(1,"NYC",50,25,$objRespViaje2,"CAMA",1232,"IyV");
+    $tierra2 = new Terrestres(2,"NYC",80,34,$objRespViaje2,"SEMICAMA",12222,"I"); 
+    
+    //$objViaje = new Viaje(23,'Traful',30,12, $objRespViaje, 34443,"ida");
     $objPasajero1 = new Pasajero('Maria', 'Kalauz', 34444332, 299443232);
     $objPasajero2 = new Pasajero('Francisco', 'Klimisch', 1222112, 2994896552);
     $objPasajero3 = new Pasajero('Dominga', 'Cena', 456333, 2984426082);
-    $objViaje->agregarPasajero($objPasajero1);
-    $objViaje->agregarPasajero($objPasajero2);
-    $objViaje->agregarPasajero($objPasajero3);
+    $objPasajero4 = new Pasajero('León', 'Kischinovsky', 12221, 2984406511);
+    $aereo->parent::agregarPasajero($objPasajero1);
+    $aereo2->parent::agregarPasajero($objPasajero2);
+    $tierra1->parent::agregarPasajero($objPasajero3);
+    $tierra2->parent::agregarPasajero($objPasajero4);
     echo menu();
     $viagiando= trim(fgets(STDIN));
         switch ($viagiando){
@@ -38,11 +50,39 @@ if( $aswer == "S"){
                             $asientosOcup = trim (fgets(STDIN));
                             echo "Ingrese los datos del Responsable del viaje: \n ";
                             $responsableViaje = crearResponsable();
-                            echo "Ingrese el valor del viaje: \n ";
+                            echo "Ingrese que tipo de viaje es: AEREO -> 1 ||| TERRESTRE -> 2 ";
+                            $elex = trim (fgets(STDIN));
+                            if($elex == 1){
+                                echo "Ingrese el nro de vuelo: \n";
+                                $nroVuelo = trim (fgets(STDIN));
+                                echo "Ingrese la categoria de asiento: (PRIMERA CLASE -> PC || STANDARD -> S \n";
+                                $categoriaAsiento =  strtoupper(trim (fgets(STDIN)));
+                                echo "Ingrese el nombre de la aerolinea: \n";
+                                $aerolinea = strtoupper(trim (fgets(STDIN)));
+                                echo "Ingrese el nro de escalas: \n";
+                                $cantEscalas = trim (fgets(STDIN));
+                                echo "Ingrese el valor del vuelo: \n";
+                                $importe = trim (fgets(STDIN));
+                                echo "Ingrese tipo de trayecto: (I->ida || V->vuelta || IyV -> ida y vuelta) \n";
+                                $idaOvuelta = trim (fgets(STDIN));
+                                $objAereo = new Aereos($viajeCodigo,$lugarDestino,$maxAsientos,$asientosOcup,$responsableViaje,$nroVuelo,$categoriaAsiento,$aerolinea,$cantEscalas,$importe,$idaOvuelta);
+                            }
+                             if($elex == 2){
+                                echo "Ingrese la categoria de asiento: (CAMA || SEMICAMA \n";
+                                $comodidadAsiento =  strtoupper(trim (fgets(STDIN)));
+                                echo "Ingrese el valor del vuelo: \n";
+                                $valorPasaje = trim (fgets(STDIN));
+                                echo "Ingrese tipo de trayecto: (I->ida || V->vuelta || IyV -> ida y vuelta) \n";
+                                $tipoDeTrayecto = trim (fgets(STDIN));
+                                $terrestre = new Terrestres($viajeCodigo,$lugarDestino,$maxAsientos,$asientosOcup,$responsableViaje,$comodidadAsiento,$valorPasaje, $tipoDeTrayecto);
+                             }                   
+                        
+                            /*echo "Ingrese el valor del viaje: \n ";
                             $valorImporte = trim (fgets(STDIN));
                             echo "Ingrese si es ida y vuelta o ida o vuelta: \n ";
                             $idaOvueltita = trim (fgets(STDIN));
-                            $objViaje = new Viaje($viajeCodigo,$lugarDestino,$maxAsientos, $asientosOcup, $responsableViaje,$valorImporte,$idaOvueltita);
+                            $objViaje = new Viaje($viajeCodigo,$lugarDestino,$maxAsientos, $asientosOcup, $responsableViaje); */
+                            
                             echo "Ingrese los datos de los pasajeros: \n";
                             do{
                                 $continuacion=false;
@@ -276,3 +316,11 @@ function modificacionDatos($objeto){
         return $cambio;
     }
 
+
+    //FUNCION PARA DISTINGUIR ENTRE AEREO O TERRESTRE
+
+    function tipoViaje($eleccion){
+        if($eleccion == 1){
+
+        }
+    }

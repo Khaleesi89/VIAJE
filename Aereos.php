@@ -136,6 +136,15 @@ class Aereos extends Viaje{
             }
             return $importe;
         }
+
+
+
+
+        //AGREGAR PASAJEROS AL ARRAY DE VIAJES
+
+        public function agregarPasajero($viajante){
+            
+        }
 }
 
         
