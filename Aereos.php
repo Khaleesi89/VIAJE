@@ -139,12 +139,6 @@ class Aereos extends Viaje{
 
 
 
-
-        //AGREGAR PASAJEROS AL ARRAY DE VIAJES
-
-        public function agregarPasajero($viajante){
-            
-        }
 }
 
         

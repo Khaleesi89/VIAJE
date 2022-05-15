@@ -66,6 +66,7 @@ if( $aswer == "S"){
                                 echo "Ingrese tipo de trayecto: (I->ida || V->vuelta || IyV -> ida y vuelta) \n";
                                 $idaOvuelta = trim (fgets(STDIN));
                                 $objAereo = new Aereos($viajeCodigo,$lugarDestino,$maxAsientos,$asientosOcup,$responsableViaje,$nroVuelo,$categoriaAsiento,$aerolinea,$cantEscalas,$importe,$idaOvuelta);
+                                agregarViaje($objAereo);
                             }
                              if($elex == 2){
                                 echo "Ingrese la categoria de asiento: (CAMA || SEMICAMA \n";
@@ -75,14 +76,8 @@ if( $aswer == "S"){
                                 echo "Ingrese tipo de trayecto: (I->ida || V->vuelta || IyV -> ida y vuelta) \n";
                                 $tipoDeTrayecto = trim (fgets(STDIN));
                                 $terrestre = new Terrestres($viajeCodigo,$lugarDestino,$maxAsientos,$asientosOcup,$responsableViaje,$comodidadAsiento,$valorPasaje, $tipoDeTrayecto);
-                             }                   
-                        
-                            /*echo "Ingrese el valor del viaje: \n ";
-                            $valorImporte = trim (fgets(STDIN));
-                            echo "Ingrese si es ida y vuelta o ida o vuelta: \n ";
-                            $idaOvueltita = trim (fgets(STDIN));
-                            $objViaje = new Viaje($viajeCodigo,$lugarDestino,$maxAsientos, $asientosOcup, $responsableViaje); */
-                            
+                                agregarViaje($terrestre);
+                            }                   
                             echo "Ingrese los datos de los pasajeros: \n";
                             do{
                                 $continuacion=false;
@@ -133,11 +128,35 @@ if( $aswer == "S"){
                             $asientosOcup = trim (fgets(STDIN));
                             echo "Ingrese los datos del Responsable del viaje: \n ";
                             $responsableViaje = crearResponsable();
-                            echo "Ingrese el valor del viaje: \n ";
-                            $valorImporte = trim (fgets(STDIN));
-                            echo "Ingrese si es ida y vuelta o ida o vuelta: \n ";
-                            $idaOvueltita = trim (fgets(STDIN));
-                            $objViaje = new Viaje($viajeCodigo,$lugarDestino,$maxAsientos, $asientosOcup, $responsableViaje,$valorImporte, $idaOvueltita);
+                            echo "Ingrese que tipo de viaje es: AEREO -> 1 ||| TERRESTRE -> 2 ";
+                            $elex = trim (fgets(STDIN));
+                            if($elex == 1){
+                                echo "Ingrese el nro de vuelo: \n";
+                                $nroVuelo = trim (fgets(STDIN));
+                                echo "Ingrese la categoria de asiento: (PRIMERA CLASE -> PC || STANDARD -> S \n";
+                                $categoriaAsiento =  strtoupper(trim (fgets(STDIN)));
+                                echo "Ingrese el nombre de la aerolinea: \n";
+                                $aerolinea = strtoupper(trim (fgets(STDIN)));
+                                echo "Ingrese el nro de escalas: \n";
+                                $cantEscalas = trim (fgets(STDIN));
+                                echo "Ingrese el valor del vuelo: \n";
+                                $importe = trim (fgets(STDIN));
+                                echo "Ingrese tipo de trayecto: (I->ida || V->vuelta || IyV -> ida y vuelta) \n";
+                                $idaOvuelta = trim (fgets(STDIN));
+                                $objAereo = new Aereos($viajeCodigo,$lugarDestino,$maxAsientos,$asientosOcup,$responsableViaje,$nroVuelo,$categoriaAsiento,$aerolinea,$cantEscalas,$importe,$idaOvuelta);
+                                agregarViaje($objAereo);
+                                
+                            }
+                             if($elex == 2){
+                                echo "Ingrese la categoria de asiento: (CAMA || SEMICAMA \n";
+                                $comodidadAsiento =  strtoupper(trim (fgets(STDIN)));
+                                echo "Ingrese el valor del vuelo: \n";
+                                $valorPasaje = trim (fgets(STDIN));
+                                echo "Ingrese tipo de trayecto: (I->ida || V->vuelta || IyV -> ida y vuelta) \n";
+                                $tipoDeTrayecto = trim (fgets(STDIN));
+                                $terrestre = new Terrestres($viajeCodigo,$lugarDestino,$maxAsientos,$asientosOcup,$responsableViaje,$comodidadAsiento,$valorPasaje, $tipoDeTrayecto);
+                                agregarViaje($terrestre);
+                            }                   
                             echo "Ingrese los datos de los pasajeros: \n";
                             do{
                                 $continuacion=false;
@@ -317,10 +336,11 @@ function modificacionDatos($objeto){
     }
 
 
-    //FUNCION PARA DISTINGUIR ENTRE AEREO O TERRESTRE
+    //FUNCION PARA AGREGAR ARRAY EN EMPRESA SEGUN EL TIPO DE CLASE QUE SEA
 
-    function tipoViaje($eleccion){
-        if($eleccion == 1){
-
-        }
+    function agregarViaje($objDeAlgunTipo){
+        $arrayInicialAereo = [];
+        $arrayInicialTerrestre = [];
+        $objEmpresa = new Empresa($arrayInicialAereo,$arrayInicialTerrestre);
+        $objEmpresa->agregarViajeAlArrayViajes($objDeAlgunTipo);
     }
