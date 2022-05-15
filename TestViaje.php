@@ -18,22 +18,27 @@ $aswer = strtoupper(trim (fgets(STDIN)));
 if( $aswer == "S"){
     $objRespViaje = new ResponsableV(2, 3211123, 'Florencio', 'Golberg');
     $objRespViaje2 = new ResponsableV(3, 122221, 'Roberto', 'Klimisch');
-
-    $aereo = new Aereos (23,'Traful',30,12, $objRespViaje, "Air232","PC","Aerolineas Argentinas",0,12222,"IyV");
+    $aereo = new Aereos (1,'Traful',30,12, $objRespViaje, "Air232","PC","Aerolineas Argentinas",0,12222,"IyV");
+    agregarViaje($aereo);
     $aereo2 = new Aereos (2,'Barcelona',150,120, $objRespViaje, "FlixAir2","PC","Latam",4,144432,"I");
-    
-    $tierra1 = new Terrestres(1,"NYC",50,25,$objRespViaje2,"CAMA",1232,"IyV");
-    $tierra2 = new Terrestres(2,"NYC",80,34,$objRespViaje2,"SEMICAMA",12222,"I"); 
-    
+    agregarViaje($aereo2);
+    $tierra1 = new Terrestres(3,"NYC",50,25,$objRespViaje2,"CAMA",1232,"IyV");
+    agregarViaje($tierra1);
+    $tierra2 = new Terrestres(4,"NYC",80,34,$objRespViaje2,"SEMICAMA",12222,"I"); 
+    agregarViaje($tierra2);
     //$objViaje = new Viaje(23,'Traful',30,12, $objRespViaje, 34443,"ida");
     $objPasajero1 = new Pasajero('Maria', 'Kalauz', 34444332, 299443232);
     $objPasajero2 = new Pasajero('Francisco', 'Klimisch', 1222112, 2994896552);
     $objPasajero3 = new Pasajero('Dominga', 'Cena', 456333, 2984426082);
     $objPasajero4 = new Pasajero('León', 'Kischinovsky', 12221, 2984406511);
-    $aereo->parent::agregarPasajero($objPasajero1);
-    $aereo2->parent::agregarPasajero($objPasajero2);
-    $tierra1->parent::agregarPasajero($objPasajero3);
-    $tierra2->parent::agregarPasajero($objPasajero4);
+    $aereo->agregarPasajero($objPasajero1);
+    $aereo2->agregarPasajero($objPasajero2);
+    $tierra1->agregarPasajero($objPasajero3);
+    $tierra2->agregarPasajero($objPasajero4);
+    //$empresa1 = new Empresa($aereo,$tierra1); 
+    //echo $empresa1;
+    //$empresa2 = new Empresa($aereo2,$tierra2);
+
     echo menu();
     $viagiando= trim(fgets(STDIN));
         switch ($viagiando){
@@ -382,4 +387,6 @@ function modificacionDatos($objeto){
         $arrayInicialTerrestre = [];
         $objEmpresa = new Empresa($arrayInicialAereo,$arrayInicialTerrestre);
         $objEmpresa->agregarViajeAlArrayViajes($objDeAlgunTipo);
+        //$objEmpresa->unionColeccion();
+        return $objEmpresa;
     }

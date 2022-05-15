@@ -43,8 +43,9 @@ class Empresa{
     private function mostrarViajesAereos(){
         $viajecitos=[];
         $viajecitos=$this->getObjViajesAereos();
+        $cont = count($viajecitos);
         $stringViajesAereos="";
-        for ($i=0; $i < count($viajecitos) ; $i++) { 
+        for ($i=0; $i < $cont ; $i++) { 
             $stringViajesAereos.=$viajecitos[$i];
         }
         return $stringViajesAereos;
@@ -53,8 +54,9 @@ class Empresa{
     private function mostrarViajesTerrestres(){
         $viajecitos=[];
         $viajecitos=$this->getObjViajesTerrestres();
+        $cont = count($viajecitos);
         $stringViajesTerrestres="";
-        for ($i=0; $i < count($viajecitos) ; $i++) { 
+        for ($i=0; $i < $cont ; $i++) { 
             $stringViajesTerrestres.=$viajecitos[$i];
         }
         return $stringViajesTerrestres;
@@ -89,7 +91,7 @@ class Empresa{
         }elseif($clase == "Terrestres"){
             $totalTerrestres = $this->getObjViajesTerrestres();
             array_push($totalTerrestres,$objViajeSegunTipo);
-            $this->setObjViajesAereos($totalTerrestres);
+            $this->setObjViajesTerrestres($totalTerrestres);
 
         }
     }
@@ -97,9 +99,9 @@ class Empresa{
 
     //UNIFICAR VIAJES //
 
-    private function unionColeccion(){
+    public function unionColeccion(){
         $aereos = $this->getObjViajesAereos();
-        $terrestres =  $this->getObjViajesTerrestres;
+        $terrestres =  $this->getObjViajesTerrestres();
         $arrayCompleto = array_merge($aereos,$terrestres);
         $this->setArrayDeViajes($arrayCompleto);
     }
@@ -109,6 +111,8 @@ class Empresa{
     //BUSCAR VIAJES
 
     public function buscarViaje($nroViajeAbuscar){
+        $arraysComp = $this->unionColeccion();
+        $this->setArrayDeViajes($arraysComp);
         $coleccComplta = $this->getArrayDeViajes();
         $i=0;
         $cantidad = count($coleccComplta);
