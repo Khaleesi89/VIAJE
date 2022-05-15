@@ -41,8 +41,8 @@ class Empresa{
     //FUNCION PARA MOSTRAR LOS VIAJES
 
     private function mostrarViajesAereos(){
-        $viajecitos=[];
-        $viajecitos=$this->getObjViajesAereos();
+        //$viajecitos=[];
+        $viajecitos= $this->getObjViajesAereos();
         $cont = count($viajecitos);
         $stringViajesAereos="";
         for ($i=0; $i < $cont ; $i++) { 

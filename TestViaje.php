@@ -35,8 +35,10 @@ if( $aswer == "S"){
     $aereo2->agregarPasajero($objPasajero2);
     $tierra1->agregarPasajero($objPasajero3);
     $tierra2->agregarPasajero($objPasajero4);
-    //$empresa1 = new Empresa($aereo,$tierra1); 
-    //echo $empresa1;
+    $empresa1 = new Empresa($aereo,$tierra1);
+    $empresa2 = new Empresa ($aereo2,$tierra2); 
+    echo $empresa1;
+    die();
     //$empresa2 = new Empresa($aereo2,$tierra2);
 
     echo menu();
