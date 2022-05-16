@@ -139,7 +139,7 @@ if( $aswer == "S"){
                                 if($pasajeValor == null){
                                     echo "La venta no se ha podido realizar";
                                 }else{
-                                    echo "El importe del viaje/vuelo es de " . $pasajeValor;
+                                    echo "El importe del viaje/vuelo es de $" . $pasajeValor;
                                 }
                             
                             
