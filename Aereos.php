@@ -128,11 +128,13 @@ class Aereos extends Viaje{
 
 
         public function venderPasaje($pasajero){
-            $hay = parent::hayPasajesDisponible();
+            $hay = parent::hayPasajesDisponible(); 
             if($hay){
                 $importe = $this->calcularImporteViaje();
                 $this->setImporte($importe);
                 parent::agregarPasajero($pasajero);
+            }else{
+                $importe = null;
             }
             return $importe;
         }
