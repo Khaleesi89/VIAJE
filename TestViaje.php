@@ -123,9 +123,26 @@ if( $aswer == "S"){
                             echo $objViaje;
                             break;
 
+                    case '4':
+                             // 4) Vender un pasaje
+                            echo "Ingrese el tipo de viaje que quiere hacer: (A- aereo || T- terrestre) \n";
+                            $tipoDeViaje = strtoupper(trim(fgets(STDIN)));
+                            $personaQviaja = infoPasajero();
+                            if($tipoDeViaje == "A"){
+                                   $pasajeValor= $empresa2->objViajesAereos->venderPasaje($personaQviaja);
+                            }else{
+                                $pasajeValor= $empresa2->objViajesTerrestres->venderPasaje($personaQviaja);
+                             }
+                            if($pasajeValor == null){
+                                    echo "La venta no se ha podido realizar";
+                            }else{
+                                echo "El importe del viaje/vuelo es de " . $pasajeValor;
+                            }
+                    break;
+
                     default:
                             $finish= false;
-                            break;
+                    break;
         };
     
 
