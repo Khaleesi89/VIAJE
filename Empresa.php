@@ -2,15 +2,15 @@
 
 
 class Empresa{
-    private $objViajesAereos = [];
-    private $objViajesTerrestres= [];
+    private $objViajesAereos;
+    private $objViajesTerrestres;
     private $arrayDeViajes= [];
 
 
 
-    public function __construct($arrayViajesAereos,$arrayViajesTerrestres){
-        $this->objViajesAereos = $arrayViajesAereos;
-        $this->objViajesTerrestres = $arrayViajesTerrestres;
+    public function __construct(){
+        $this->objViajesAereos = [] ;
+        $this->objViajesTerrestres =[];
         
     }
     
@@ -41,7 +41,7 @@ class Empresa{
     //FUNCION PARA MOSTRAR LOS VIAJES
 
     private function mostrarViajesAereos(){
-        //$viajecitos=[];
+        $viajecitos=[];
         $viajecitos= $this->getObjViajesAereos();
         $cont = count($viajecitos);
         $stringViajesAereos="";

@@ -16,16 +16,18 @@ echo "--------- Viaje Feliz ----------\n";
 echo "Desea usar un viaje anterior?: S o N \n";
 $aswer = strtoupper(trim (fgets(STDIN)));
 if( $aswer == "S"){
+    $empresa1 = new Empresa();
+    //$empresa2 = new Empresa ();
     $objRespViaje = new ResponsableV(2, 3211123, 'Florencio', 'Golberg');
     $objRespViaje2 = new ResponsableV(3, 122221, 'Roberto', 'Klimisch');
     $aereo = new Aereos (1,'Traful',30,12, $objRespViaje, "Air232","PC","Aerolineas Argentinas",0,12222,"IyV");
-    agregarViaje($aereo);
+    $empresa1->agregarViajeAlArrayViajes($aereo);
     $aereo2 = new Aereos (2,'Barcelona',150,120, $objRespViaje, "FlixAir2","PC","Latam",4,144432,"I");
-    agregarViaje($aereo2);
+    $empresa1->agregarViajeAlArrayViajes($aereo2);
     $tierra1 = new Terrestres(3,"NYC",50,25,$objRespViaje2,"CAMA",1232,"IyV");
-    agregarViaje($tierra1);
+    $empresa1->agregarViajeAlArrayViajes($tierra1);
     $tierra2 = new Terrestres(4,"NYC",80,34,$objRespViaje2,"SEMICAMA",12222,"I"); 
-    agregarViaje($tierra2);
+    $empresa1->agregarViajeAlArrayViajes($tierra2);
     //$objViaje = new Viaje(23,'Traful',30,12, $objRespViaje, 34443,"ida");
     $objPasajero1 = new Pasajero('Maria', 'Kalauz', 34444332, 299443232);
     $objPasajero2 = new Pasajero('Francisco', 'Klimisch', 1222112, 2994896552);
@@ -34,13 +36,8 @@ if( $aswer == "S"){
     $aereo->agregarPasajero($objPasajero1);
     $aereo2->agregarPasajero($objPasajero2);
     $tierra1->agregarPasajero($objPasajero3);
-    $tierra2->agregarPasajero($objPasajero4);
-    $empresa1 = new Empresa($aereo,$tierra1);
-    $empresa2 = new Empresa ($aereo2,$tierra2); 
-    echo $empresa1;
-    die();
-    //$empresa2 = new Empresa($aereo2,$tierra2);
-
+    $tierra2->agregarPasajero($objPasajero4); 
+    echo $empresa1;    
     echo menu();
     $viagiando= trim(fgets(STDIN));
         switch ($viagiando){
@@ -74,7 +71,7 @@ if( $aswer == "S"){
                                 echo "Ingrese tipo de trayecto: (I->ida || V->vuelta || IyV -> ida y vuelta) \n";
                                 $idaOvuelta = trim (fgets(STDIN));
                                 $objAereo = new Aereos($viajeCodigo,$lugarDestino,$maxAsientos,$asientosOcup,$responsableViaje,$nroVuelo,$categoriaAsiento,$aerolinea,$cantEscalas,$importe,$idaOvuelta);
-                                agregarViaje($objAereo);
+                                $empresa1->agregarViajeAlArrayViajes($objAereo);
                                 echo "Ingrese los datos de los pasajeros: \n";
                             do{
                                 $continuacion=false;
@@ -96,7 +93,7 @@ if( $aswer == "S"){
                                 echo "Ingrese tipo de trayecto: (I->ida || V->vuelta || IyV -> ida y vuelta) \n";
                                 $tipoDeTrayecto = trim (fgets(STDIN));
                                 $terrestre = new Terrestres($viajeCodigo,$lugarDestino,$maxAsientos,$asientosOcup,$responsableViaje,$comodidadAsiento,$valorPasaje, $tipoDeTrayecto);
-                                agregarViaje($terrestre);
+                                $empresa1->agregarViajeAlArrayViajes($terrestre);
                                 echo "Ingrese los datos de los pasajeros: \n";
                             do{
                                 $continuacion=false;
@@ -117,7 +114,7 @@ if( $aswer == "S"){
                             // 2) Modificar un viaje
                             echo "Ingrese el codigo de viaje que desea modificar: \n";
                             $nroModificar = trim(fgets(STDIN));
-                            $objViaje2 = $objEmpresa->buscarViaje($nroModificar);
+                            $objViaje2 = $empresa1->buscarViaje($nroModificar);
                             echo modificacionDatos($objViaje2);
                             break;                           
 
@@ -125,7 +122,7 @@ if( $aswer == "S"){
                             // 3) Ver datos de un viaje
                             echo "Ingrese el codigo de viaje que desea ver: \n";
                             $nroViagem = trim(fgets(STDIN));
-                            $objViaje = $objEmpresa->buscarViaje($nroViagem);
+                            $objViaje = $empresa1->buscarViaje($nroViagem);
                             echo $objViaje;
                             break;
 
@@ -171,7 +168,7 @@ if( $aswer == "S"){
                                 echo "Ingrese tipo de trayecto: (I->ida || V->vuelta || IyV -> ida y vuelta) \n";
                                 $idaOvuelta = trim (fgets(STDIN));
                                 $objAereo = new Aereos($viajeCodigo,$lugarDestino,$maxAsientos,$asientosOcup,$responsableViaje,$nroVuelo,$categoriaAsiento,$aerolinea,$cantEscalas,$importe,$idaOvuelta);
-                                agregarViaje($objAereo);
+                                $empresa1->agregarViajeAlArrayViajes($objAereo);
                                 echo "Ingrese los datos de los pasajeros: \n";
                             do{
                                 $continuacion=false;
@@ -194,7 +191,7 @@ if( $aswer == "S"){
                                 echo "Ingrese tipo de trayecto: (I->ida || V->vuelta || IyV -> ida y vuelta) \n";
                                 $tipoDeTrayecto = trim (fgets(STDIN));
                                 $terrestre = new Terrestres($viajeCodigo,$lugarDestino,$maxAsientos,$asientosOcup,$responsableViaje,$comodidadAsiento,$valorPasaje, $tipoDeTrayecto);
-                                agregarViaje($terrestre);
+                                $empresa1->agregarViajeAlArrayViajes($terrestre);
                                 echo "Ingrese los datos de los pasajeros: \n";
                             do{
                                 $continuacion=false;
@@ -215,7 +212,7 @@ if( $aswer == "S"){
                             // 2) Modificar un viaje
                             echo "Ingrese el codigo de viaje que desea modificar: \n";
                             $nroModificar = trim(fgets(STDIN));
-                            $objViaje2 = $objEmpresa->buscarViaje($nroModificar);
+                            $objViaje2 = $empresa1->buscarViaje($nroModificar);
                             echo modificacionDatos($objViaje2);
                     break;                           
 
@@ -223,7 +220,7 @@ if( $aswer == "S"){
                             // 3) Ver datos de un viaje
                             echo "Ingrese el codigo de viaje que desea ver: \n";
                             $nroViagem = trim(fgets(STDIN));
-                            $objViaje = $objEmpresa->buscarViaje($nroViagem);
+                            $objViaje = $empresa1->buscarViaje($nroViagem);
                             echo $objViaje;
                     break;
 
@@ -384,11 +381,11 @@ function modificacionDatos($objeto){
 
     //FUNCION PARA AGREGAR ARRAY EN EMPRESA SEGUN EL TIPO DE CLASE QUE SEA
 
-    function agregarViaje($objDeAlgunTipo){
+    /*function agregarViaje($objDeAlgunTipo){
         $arrayInicialAereo = [];
         $arrayInicialTerrestre = [];
-        $objEmpresa = new Empresa($arrayInicialAereo,$arrayInicialTerrestre);
+        //$objEmpresa = new Empresa($arrayInicialAereo,$arrayInicialTerrestre);
         $objEmpresa->agregarViajeAlArrayViajes($objDeAlgunTipo);
         //$objEmpresa->unionColeccion();
         return $objEmpresa;
-    }
+    }*/
