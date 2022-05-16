@@ -125,19 +125,24 @@ if( $aswer == "S"){
 
                     case '4':
                              // 4) Vender un pasaje
-                            echo "Ingrese el tipo de viaje que quiere hacer: (A- aereo || T- terrestre) \n";
-                            $tipoDeViaje = strtoupper(trim(fgets(STDIN)));
-                            $personaQviaja = infoPasajero();
-                            if($tipoDeViaje == "A"){
-                                   $pasajeValor= $empresa2->objViajesAereos->venderPasaje($personaQviaja);
-                            }else{
-                                $pasajeValor= $empresa2->objViajesTerrestres->venderPasaje($personaQviaja);
-                             }
-                            if($pasajeValor == null){
+                            echo "Ingrese el nro de viaje al que desea agregar un pasajero: ";
+                            $numeritoViaje = trim(fgets(STDIN));
+                            $viajeEncontrdo = $empresa1->buscarViaje($numeritoViaje);
+                                echo "Ingrese el tipo de viaje que quiere hacer: (A- aereo || T- terrestre) \n";
+                                $tipoDeViaje = strtoupper(trim(fgets(STDIN)));
+                                $personaQviaja = infoPasajero();
+                                if($tipoDeViaje == "A"){
+                                    $pasajeValor = $viajeEncontrdo->venderPasaje($personaQviaja);
+                                }else{
+                                    $pasajeValor = $viajeEncontrdo->venderPasaje($personaQviaja);
+                                }
+                                if($pasajeValor == null){
                                     echo "La venta no se ha podido realizar";
-                            }else{
-                                echo "El importe del viaje/vuelo es de " . $pasajeValor;
-                            }
+                                }else{
+                                    echo "El importe del viaje/vuelo es de " . $pasajeValor;
+                                }
+                            
+                            
                     break;
 
                     default:
@@ -242,19 +247,26 @@ if( $aswer == "S"){
 
                     case '4':
                         // 4) Vender un pasaje
-                        echo "Ingrese el tipo de viaje que quiere hacer: (A- aereo || T- terrestre) \n";
-                        $tipoDeViaje = strtoupper(trim(fgets(STDIN)));
-                        $personaQviaja = infoPasajero();
-                        if($tipoDeViaje == "A"){
-                            $pasajeValor= $empresa2->objViajesAereos->venderPasaje($personaQviaja);
-                        }else{
-                            $pasajeValor= $empresa2->objViajesTerrestres->venderPasaje($personaQviaja);
-                        }
-                        if($pasajeValor == null){
-                            echo "La venta no se ha podido realizar";
-                        }else{
-                            echo "El importe del viaje/vuelo es de " . $pasajeValor;
-                        }
+                            echo "Ingrese el nro de viaje al que desea agregar un pasajero: ";
+                            $numeritoViaje = trim(fgets(STDIN));
+                            $viajeEncontrdo = $empresa1->buscarViaje($numeritoViaje);
+                            if ($viajeEncontrado == null){
+                                echo "El código ingresado no está registrado como viaje";
+                            }else{
+                                echo "Ingrese el tipo de viaje que quiere hacer: (A- aereo || T- terrestre) \n";
+                                $tipoDeViaje = strtoupper(trim(fgets(STDIN)));
+                                $personaQviaja = infoPasajero();
+                                if($tipoDeViaje == "A"){
+                                    $pasajeValor = $viajeEncontrdo->venderPasaje($personaQviaja);
+                                }else{
+                                    $pasajeValor = $viajeEncontrdo->venderPasaje($personaQviaja);
+                                }
+                                if($pasajeValor == null){
+                                    echo "La venta no se ha podido realizar";
+                                }else{
+                                    echo "El importe del viaje/vuelo es de " . $pasajeValor;
+                                }
+                            }
 
                     break;
 
