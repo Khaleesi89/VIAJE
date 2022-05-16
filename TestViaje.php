@@ -256,8 +256,13 @@ if( $aswer == "S"){
             3- Desea cambiar la cantidad de pasajeros que viajaron?\n.
             4- Desea cambiar los datos de un pasajero?\n.
             5- Desea cambiar la capacidad máxima de la movilidad?\n.
-            6- Ver viaje \n.
-            7- Salir \n.";
+            6- Desea cambiar la categoria de Asiento/comodidad de asiento?\n.
+            7- Desea cambiar el nombre de la aerolinea?\n.
+            8- Desea cambiar el número de escalas? \n.
+            9- Desea cambiar el valor del viaje/vuelo?\n.
+            10-Desea cambiar el tipo de trayecto?\n.
+            11- Ver viaje \n.
+            12- Salir \n.";
 
     }
 
@@ -327,6 +332,56 @@ function modificacionDatos($objeto){
                 break;
 
                 case '6':
+                    //Desea cambiar la categoria de Asiento/ comodidad de asiento//
+                    echo "Ingrese la nueva categoría de Asiento o comodidad de asiento: \n";
+                    $asiento = trim (fgets(STDIN));
+                    $resultado = get_class($objeto);
+                    if ($resultado == "Aereos"){
+                        $objeto->setCategoriaAsiento($asiento);
+                    }else{
+                        $objeto->setComodidadAsiento($asiento);
+                    } 
+                    
+                break;
+                case '7':
+                    //Desea cambiar el nombre de la aerolinea //
+                    echo "Ingrese el nuevo nombre de la aerolinea: \n";
+                    $nameAerolinea = trim (fgets(STDIN));
+                    $objeto->setAerolinea($nameAerolinea);
+                   
+                break;
+                case '8':
+                    //Desea cambiar el número de escalas//
+                    echo "Ingrese el nuevo número de escalas: \n";
+                    $escalasCant=trim (fgets(STDIN));
+                    $objeto->setCantEscalas($escalasCant);
+                   
+                break;
+                case '9':
+                    //Desea cambiar el valor del viaje/vuelo //
+                    echo "Ingrese el nuevo valor del viaje/vuelo: \n";
+                    $importeViajecito = trim (fgets(STDIN));
+                    $resultado = get_class($objeto);
+                    if ($resultado == "Aereos"){
+                        $objeto->setCategoriaAsiento($importeViajecito);
+                    }else{
+                        $objeto->setComodidadAsiento($importeViajecito);
+                    }
+                    
+                break;
+                case '10':
+                    //Desea cambiar el tipo de trayecto //
+                    echo "Ingrese el nuevo tipo de trayecto: \n";
+                    $trayectito = trim (fgets(STDIN));
+                    $resultado = get_class($objeto);
+                    if ($resultado == "Aereos"){
+                        $objeto->setCategoriaAsiento($trayectito);
+                    }else{
+                        $objeto->setComodidadAsiento($trayectito);
+                    }
+                    
+                break;
+                case '11':
                     //Ver viaje //
                     echo $objeto;
                 break;
