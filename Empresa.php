@@ -111,9 +111,12 @@ class Empresa{
     //BUSCAR VIAJES
 
     public function buscarViaje($nroViajeAbuscar){
-        $arraysComp = $this->unionColeccion();
-        $this->setArrayDeViajes($arraysComp);
+
+        $this->unionColeccion();
+        //$this->setArrayDeViajes($arraysComp);
         $coleccComplta = $this->getArrayDeViajes();
+        //echo $coleccComplta;
+        //die();
         $i=0;
         $cantidad = count($coleccComplta);
         $salida = true;

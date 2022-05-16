@@ -83,7 +83,7 @@ if( $aswer == "S"){
                             }while($continuacion);
                             }
                              if($elex == 2){
-                                echo "Ingrese la categoria de asiento: (CAMA || SEMICAMA \n";
+                                echo "Ingrese la categoria de asiento: (CAMA || SEMICAMA) \n";
                                 $comodidadAsiento =  strtoupper(trim (fgets(STDIN)));
                                 echo "Ingrese el valor del viaje: \n";
                                 $valorPasaje = trim (fgets(STDIN));
