@@ -7,15 +7,16 @@ class Pasajero{
     private $papellido;
     private $ptelefono;
     private $idviaje;
+    private $errorOno;
 
 
-    public function __construct($documento,$nombre,$apellido,$telefono,$codigoViaje)
+    public function __construct()
     {
-        $this->rdocumento = $documento;
-        $this->pnombre = $nombre;
-        $this->papellido = $apellido;
-        $this->ptelefono = $telefono;
-        $this->idviaje = $codigoViaje;
+        $this->rdocumento = "";
+        $this->pnombre = "";
+        $this->papellido = "";
+        $this->ptelefono = "";
+        
     }
 
 
@@ -61,6 +62,14 @@ class Pasajero{
         $this->idviaje = $codigoViaje;
     }
 
+    public function getErrorOno(){
+        return $this->errorOno;
+    }
+
+    public function setErrorOno($errorOno){
+        $this->errorOno = $errorOno;
+    }
+
     public function __toString()
     {
         $info="
@@ -71,5 +80,103 @@ class Pasajero{
         ID VIAJE: {$this->getIdviaje()}
         ";
         return $info;
+    }
+
+
+    //CREO EL PASAJERO
+
+    public function pasajeroCrear($nombre, $apellido, $dni, $telefono) {		
+        $this->setPnombre($nombre);
+        $this->setPapellido($apellido);
+        $this->setRdocumento($dni);
+        $this->setPtelefono($telefono);
+    }
+
+    //BUSCAR PASAJERO
+
+    public function buscar($dni) {
+        $baseDeDatos = new BaseDeDatos();
+        $buscando = "SELECT * FROM pasajero WHERE rdocumento = ".$dni;
+        $resultado = false;
+
+        if ($baseDeDatos->iniciar()) {
+            if ($baseDeDatos->ejecutar($buscando)) {
+                if ($row2 = $baseDeDatos->registro()) {
+                    $this->setRdocumento($dni);
+                    $this->setPnombre($row2['pnombre']);
+                    $this->setPapellido($row2['rdocumento']);
+                    $this->setPtelefono($row2['ptelefono']);
+                    $resultado = true;
+                }
+            } else {
+                $this->setErrorOno($baseDeDatos->getError());
+            }
+        } else {
+            $this->setErrorOno($baseDeDatos->getError());
+        }
+        return $resultado;
+    }
+
+
+    //LISTAR PASAJEROS
+
+    //INSERTAR PASAJEROS
+    public function insertarPasajero() {
+        $baseDeDatos = new BaseDeDatos();
+        $resultado = false;
+        $insertar = "INSERT INTO pasajero(pnombre, papellido, rdocumento, ptelefono) 
+                            VALUES ('".$this->getPnombre()."',
+                                    '".$this->getPapellido()."',
+                                    '".$this->getRdocumento()."',
+                                    '".$this->getPtelefono()."')";
+        if ($baseDeDatos->Iniciar()) {
+            if ($baseDeDatos->Ejecutar($insertar)) {
+                $resultado = true;
+            } else {
+                $this->setErrorOno($baseDeDatos->getError());	
+            }
+        } else {
+            $this->setErrorOno($baseDeDatos->getError());
+        }
+        return $resultado;
+    }
+
+    //ELIMINAR PASAJEROS
+
+    public function eliminarPasajero($dni) {
+        $baseDeDatos = new BaseDeDatos();
+        $resultado = false;
+        if ($baseDeDatos ->Iniciar()) {
+            $dni = "DELETE FROM pasajero WHERE rdocumento = ".$this->getRdocumento();
+            if ($baseDeDatos ->Ejecutar($dni)) {
+                $resultado = true;
+            } else {
+                $this->setErrorOno($baseDeDatos ->getError());	
+            }
+        } else {
+            $this->setErrorOno($baseDeDatos ->getError());
+        }
+        return $resultado;
+    }
+
+    //MODIFICAR PASAJERO
+
+    public function modificarPasajero() {
+        $resultado = false; 
+        $baseDeDatos = new BaseDeDatos();
+        $update = "UPDATE pasajero SET pnombre = '".$this->getPnombre()."',
+                                            papellido = '".$this->getPapellido()."',
+                                            ptelefono = '".$this->getPtelefono()."' 
+                                            WHERE rdocumento = ". $this->getRdocumento();
+        if ($baseDeDatos->Iniciar()) {
+            if ($baseDeDatos->Ejecutar($update)) {
+                $resultado = true;
+            } else {
+                $this->setErrorOno($baseDeDatos->getError());
+            }
+        } else {
+            $this->setErrorOno($baseDeDatos->getError());
+        }
+        return $resultado;
     }
 }
