@@ -1,4 +1,5 @@
 <?php
+include_once "BaseDeDatos.php";
 
 class Responsable{
     private $rnumeroempleado;
