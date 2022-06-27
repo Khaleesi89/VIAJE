@@ -151,10 +151,7 @@ class Responsable{
     public function modificarResponsable() {
         $resultado = false; 
         $baseDeDatos = new BaseDeDatos();
-        $modificar = "UPDATE responsable SET rnumerolicencia = '".$this->getRnumerolicencia()."',
-                                            rnombre = '".$this->getRnombre()."', 
-                                            rapellido ='".$this->getRapellido()."'
-                                            WHERE rdocumento = ". $this->getRnumeroempleado();
+        $modificar = "UPDATE responsable SET rnumerolicencia = '".$this->getRnumerolicencia()."',rnombre = '".$this->getRnombre()."',rapellido ='".$this->getRapellido()."'WHERE rdocumento = ". $this->getRnumeroempleado();                                    
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($modificar)) {
                 $resultado = true;
@@ -175,14 +172,13 @@ class Responsable{
         $baseDeDatos = new BaseDeDatos();
         $buscando = "SELECT * FROM responsable WHERE rdocumento = ".$dni;
         $resultado = false;
-
         if ($baseDeDatos->iniciar()) {
             if ($baseDeDatos->ejecutar($buscando)) {
                 if ($row2 = $baseDeDatos->registro()) {
-                    $this->setRdocumento($dni);
-                    $this->setPnombre($row2['pnombre']);
-                    $this->setPapellido($row2['rdocumento']);
-                    $this->setPtelefono($row2['ptelefono']);
+                    $this->setRnumeroEmpleado($dni);
+                    $this->setRnumeroLicencia($row2['rnumerolicencia']);
+                    $this->setRnombre($row2['rnombre']);
+                    $this->setRapellido($row2['rapellido']);
                     $resultado = true;
                 }
             } else {

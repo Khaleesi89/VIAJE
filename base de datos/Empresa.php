@@ -58,13 +58,12 @@ class Empresa{
         return $info;
     }
 
-    //BUSCAR
+    //BUSCAR EMPRESAS
 
     public function buscar($empresaCod) {
         $baseDeDatos = new BaseDeDatos();
         $buscando = "SELECT * FROM empresa WHERE idempresa = ".$empresaCod;
         $resultado = false;
-
         if ($baseDeDatos->iniciar()) {
             if ($baseDeDatos->ejecutar($buscando)) {
                 if ($row2 = $baseDeDatos->registro()) {
@@ -85,18 +84,10 @@ class Empresa{
 
     //LISTAR EMPRESAS
 
-    public function listar($condicion = "") {
-        if($condicion == ""){
-            $arrayEmpresas = null;
-            $baseDeDatos = new BaseDeDatos();
-        }
-        $consulta = "Select * from empresa ";
-        //Si la condición recibida por parámetro no está vacia, se arma un nuevo string para la consulta en la BD:
-        if ($condicion != "") {
-            $consulta = $consulta.' where '.$condicion;
-        }
-        $consulta .= " order by enombre ";
-        //echo $consultaEmpresa;
+    public function listar() {
+        $arrayEmpresas = null;
+        $baseDeDatos = new BaseDeDatos();
+        $consulta = "SELECT * FROM empresa";
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($consulta)) {				
                 $arrayEmpresas = array();
@@ -106,7 +97,7 @@ class Empresa{
                     $direccion = $row2['edireccion'];
                     $nuevaEmpresa = new Empresa();
                     $nuevaEmpresa->insertarEmpresa($idEmpresa, $nombre, $direccion);
-                    array_push($arrayEmpresas, $nuevaEmpresa);
+                    $arrayEmpresas[] = $nuevaEmpresa;
                 }
              } else {
                 $this->setErrorOno($baseDeDatos->getError());
@@ -123,12 +114,10 @@ class Empresa{
         $baseDeDatos = new BaseDeDatos();
         $resultado = false;
         $insertar = "INSERT INTO empresa(idempresa, enombre, edireccion) 
-                            VALUES ('".$this->getIdempresa()."',
-                                    '".$this->getEnombre()."',
-                                    '".$this->getEdireccion()."')";
+                            VALUES ('".$this->getIdempresa()."','".$this->getEnombre()."','".$this->getEdireccion()."')";
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($insertar)) {
-                $resp = true;
+                $resultado = true;
             } else {
                 $this->setErrorOno($baseDeDatos->getError());	
             }
@@ -143,7 +132,7 @@ class Empresa{
     public function modificarEmpresa() {
         $resultado = false; 
         $baseDeDatos = new BaseDeDatos();
-        $update = "UPDATE pasajero SET enombre = '".$this->getEnombre()."',
+        $update = "UPDATE empresa SET enombre = '".$this->getEnombre()."',
                                             edireccion = '".$this->getEdireccion()."'
                                             WHERE idempresa = ". $this->getIdempresa();
         if ($baseDeDatos->Iniciar()) {

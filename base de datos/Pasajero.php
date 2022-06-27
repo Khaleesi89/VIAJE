@@ -1,6 +1,7 @@
 <?php
 
 include_once "BaseDeDatos.php";
+include_once "Viaje.php";
 
 class Pasajero{
     private $rdocumento;
@@ -101,14 +102,14 @@ class Pasajero{
         $baseDeDatos = new BaseDeDatos();
         $buscando = "SELECT * FROM pasajero WHERE rdocumento = ".$dni;
         $resultado = false;
-
         if ($baseDeDatos->iniciar()) {
             if ($baseDeDatos->ejecutar($buscando)) {
                 if ($row2 = $baseDeDatos->registro()) {
                     $this->setRdocumento($dni);
                     $this->setPnombre($row2['pnombre']);
-                    $this->setPapellido($row2['rdocumento']);
+                    $this->setPapellido($row2['papellido']);
                     $this->setPtelefono($row2['ptelefono']);
+                    $this->setIdViaje($row2['idviaje']);
                     $resultado = true;
                 }
             } else {
@@ -126,16 +127,14 @@ class Pasajero{
     public function listarPasajeros($condicion = ""){
         $arrayPasajeros = null;
         $baseDeDatos = new BaseDeDatos();
-        $consulta = "Select * from pasajero ";
-        //Si la condición recibida por parámetro no está vacia, se arma un nuevo string para la consulta en la BD:
+        $consultar = "SELECT * FROM pasajero";
         if ($condicion != "") {
-            $consulta = $consulta.' where '.$condicion;
+            $consultar.=" WHERE ".$condicion;
         }
-
-        $consulta .= " order by papellido ";
+        $consultar .=  "ORDER BY papellido";
         
         if ($baseDeDatos->Iniciar()) {
-            if ($baseDeDatos->Ejecutar($consulta)) {				
+            if ($baseDeDatos->Ejecutar($consultar)) {				
                 $arrayPasajeros = array();
                 while ($row2 = $baseDeDatos->Registro()) {
                     $dni = $row2['rdocumento'];
@@ -145,7 +144,7 @@ class Pasajero{
                     $idViaje = $row2['idviaje'];
                     $nuevoPasajero = new Pasajero();
                     $nuevoPasajero->insertarPasajero($dni, $nombre, $apellido, $telefono, $idViaje);
-                    array_push($arrayPasajeros, $nuevoPasajero);
+                    $arreglo[] = $nuevoPasajero;
                 }
              } else {
                 $this->setErrorOno($baseDeDatos->getError());
@@ -161,10 +160,7 @@ class Pasajero{
         $baseDeDatos = new BaseDeDatos();
         $resultado = false;
         $insertar = "INSERT INTO pasajero(pnombre, papellido, rdocumento, ptelefono) 
-                            VALUES ('".$this->getPnombre()."',
-                                    '".$this->getPapellido()."',
-                                    '".$this->getRdocumento()."',
-                                    '".$this->getPtelefono()."')";
+                            VALUES ('".$this->getPnombre()."','".$this->getPapellido()."','".$this->getRdocumento()."','".$this->getPtelefono()."')";
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($insertar)) {
                 $resultado = true;
@@ -200,10 +196,8 @@ class Pasajero{
     public function modificarPasajero() {
         $resultado = false; 
         $baseDeDatos = new BaseDeDatos();
-        $update = "UPDATE pasajero SET pnombre = '".$this->getPnombre()."',
-                                            papellido = '".$this->getPapellido()."',
-                                            ptelefono = '".$this->getPtelefono()."' 
-                                            WHERE rdocumento = ". $this->getRdocumento();
+        $update = "UPDATE pasajero SET pnombre='.$this->getPNombre()', papellido='.$this->getPApellido().', 
+        ptelefono=.$this->getPTelefono()., idviaje= .$this->getIdViaje(). WHERE rdocumento=.$this->getRDocumento().";
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($update)) {
                 $resultado = true;

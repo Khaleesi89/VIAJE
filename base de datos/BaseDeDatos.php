@@ -72,7 +72,7 @@ class BaseDeDatos {
         if(  $this->RESULT = mysqli_query($this->CONEXION,$consulta)){
             $resp = true;
         } else {
-            $this->ERROR =mysqli_errno( $this->CONEXION).": ". mysqli_error( $this->CONEXION);
+            $this->ERROR =mysqli_errno($this->CONEXION).": ". mysqli_error($this->CONEXION);
         }
         return $resp;
     }
@@ -113,7 +113,7 @@ class BaseDeDatos {
             $id = mysqli_insert_id($this->CONEXION);
             $resp =  $id;
         } else {
-            $this->ERROR =mysqli_errno( $this->CONEXION) . ": " . mysqli_error( $this->CONEXION);
+            $this->ERROR =mysqli_errno($this->CONEXION) . ": " . mysqli_error($this->CONEXION);
            
         }
     return $resp;
