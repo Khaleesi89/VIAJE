@@ -85,7 +85,38 @@ class Empresa{
 
     //LISTAR EMPRESAS
 
-    
+    public function listar($condicion = "") {
+        if($condicion == ""){
+            $arrayEmpresas = null;
+            $baseDeDatos = new BaseDeDatos();
+        }
+        $consulta = "Select * from empresa ";
+        //Si la condición recibida por parámetro no está vacia, se arma un nuevo string para la consulta en la BD:
+        if ($condicion != "") {
+            $consulta = $consulta.' where '.$condicion;
+        }
+        $consulta .= " order by enombre ";
+        //echo $consultaEmpresa;
+        if ($baseDeDatos->Iniciar()) {
+            if ($baseDeDatos->Ejecutar($consulta)) {				
+                $arrayEmpresas = array();
+                while ($row2 = $baseDeDatos->Registro()) {
+                    $idEmpresa = $row2['idempresa'];
+                    $nombre = $row2['enombre'];
+                    $direccion = $row2['edireccion'];
+                    $nuevaEmpresa = new Empresa();
+                    $nuevaEmpresa->insertarEmpresa($idEmpresa, $nombre, $direccion);
+                    array_push($arrayEmpresas, $nuevaEmpresa);
+                }
+             } else {
+                $this->setErrorOno($baseDeDatos->getError());
+            }
+        } else {
+             $this->setErrorOno($baseDeDatos->getError());
+        }	
+        return $arrayEmpresas;
+    }
+
 
     //INSERTAR EMPRESA
     public function insertarEmpresa() {

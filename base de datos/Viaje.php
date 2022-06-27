@@ -11,19 +11,20 @@ class Viaje{
     private $vimporte;
     private $tipoAsiento;
     private $idayvuelta;
+    private $colecPasajeros;
+    private $errorOno;
 
 
-    public function __construct($codigoviaje,$destino,$cantMaxPasaj,$documento,$empresa,$empleado,$importe,$asientoTipo,$goAndReturn)
+    public function __construct()
     {
-        $this->idviaje = $codigoviaje;
-        $this->vdestino = $destino;
-        $this->vcantmaxpasajeros = $cantMaxPasaj;
-        $this->rdocumento = $documento;
-        $this->idempresa = $empresa;
-        $this->rnumeroempleado = $empleado;
-        $this->vimporte = $importe;
-        $this->tipoAsiento = $asientoTipo;
-        $this->idayvuelta = $goAndReturn;
+        $this->idviaje = "";
+        $this->vdestino = "";
+        $this->vcantmaxpasajeros = "";
+        $this->idempresa = "";
+        $this->rnumeroempleado = "";
+        $this->vimporte = "";
+        $this->tipoAsiento = "";
+        $this->idayvuelta = "";
     }
 
 
@@ -99,8 +100,36 @@ class Viaje{
         $this->idayvuelta = $goAndReturn;
     }
 
+    public function getColecPasajeros(){
+        return $this->colecPasajeros;
+    }
+
+    public function setColecPasajeros($colecPasajeros){
+        $this->colecPasajeros = $colecPasajeros;
+    }
+
+    public function getErrorOno(){
+        return $this->errorOno;
+    }
+
+    public function setErrorOno($errorOno){
+        $this->errorOno = $errorOno;
+    }
+
+    public function mostrarPasajeros(){
+        $pasajeros=[];
+        $pasajeros=$this->getColecPasajeros();
+        $cont = count($pasajeros);
+        $string="";
+        for ($i=0; $i < $cont ; $i++) { 
+            $string.=$pasajeros[$i];
+        }
+        return $string;
+    }
+
     public function __toString()
     {
+        $pasajeros = $this->mostrarPasajeros();
         $info = "
         ID VIAJE: {$this->getIdviaje()}
         DESTINO: {$this-> getVdestino()}
@@ -111,8 +140,22 @@ class Viaje{
         IMPORTE: {$this->getVimporte()}
         TIPO DE ASIENTO: {$this->getTipoAsiento()}
         IDA Y VUELTA: {$this->getIdayvuelta()}
+        COLECCION DE PASAJEROS:
+        {$pasajeros}
         ";
         return $info;
     }
     
+    
+    public function ingresarViaje($codViaje, $destiny, $capPasajeros, $idEmpresa, $objResponsable, $cash, $tipoAsiento, $idayvuelta) {
+        $this->setIdviaje($codViaje);
+        $this->setVdestino($destiny);
+        $this->setVcantmaxpasajeros($capPasajeros);
+        $this->setIdempresa($idEmpresa);
+        $this->setRnumeroempleado($objResponsable);
+        $this->setVimporte($cash);
+        $this->setTipoAsiento($tipoAsiento);
+        $this->setIdayvuelta($idayvuelta);
+    }
+
 }

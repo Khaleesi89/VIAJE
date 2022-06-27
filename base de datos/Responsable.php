@@ -72,6 +72,38 @@ class Responsable{
 
     //LISTAR RESPONSABLE
 
+    public function listarResponsable($condicion){
+        if($condicion == ""){
+            $arrayPasajeros = null;
+            $baseDeDatos = new BaseDeDatos();
+        }
+        $consulta = "Select * from responsable ";
+        if ($condicion != "") {
+            $consulta = $consulta.' where '.$condicion;
+        }
+
+        $consulta .= " ***************** ";
+        
+        if ($baseDeDatos->Iniciar()) {
+            if ($baseDeDatos->Ejecutar($consulta)) {				
+                $arrayResponsables = array();
+                while ($row2 = $baseDeDatos->Registro()) {
+                    $nroEmpleado = $row2['rnumeroempleado'];
+                    $nroLicencia = $row2['rnumerolicencia'];
+                    $nombre = $row2['rnombre'];
+                    $apellido = $row2['rapellido'];
+                    $nuevoResponsable = new Responsable();
+                    $nuevoResponsable->insertarResponsable($nroEmpleado, $nroLicencia,$nombre, $apellido);
+                    array_push($arrayResponsables, $nuevoResponsable);
+                }
+             } else {
+                $this->setErrorOno($baseDeDatos->getError());
+            }
+        } else {
+             $this->setErrorOno($baseDeDatos->getError());
+        }	
+        return $arrayPasajeros;
+    }
     
 
 
@@ -86,7 +118,7 @@ class Responsable{
                                     '".$this->getRapellido()."')";
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($insertar)) {
-                $resp = true;
+                $resultado = true;
             } else {
                 $this->setErrorOno($baseDeDatos->getError());	
             }
@@ -135,4 +167,31 @@ class Responsable{
         return $resultado;
     }
     
+
+    //BUSCAR RESPONSABLE
+    
+
+    public function buscar($dni) {
+        $baseDeDatos = new BaseDeDatos();
+        $buscando = "SELECT * FROM responsable WHERE rdocumento = ".$dni;
+        $resultado = false;
+
+        if ($baseDeDatos->iniciar()) {
+            if ($baseDeDatos->ejecutar($buscando)) {
+                if ($row2 = $baseDeDatos->registro()) {
+                    $this->setRdocumento($dni);
+                    $this->setPnombre($row2['pnombre']);
+                    $this->setPapellido($row2['rdocumento']);
+                    $this->setPtelefono($row2['ptelefono']);
+                    $resultado = true;
+                }
+            } else {
+                $this->setErrorOno($baseDeDatos->getError());
+            }
+        } else {
+            $this->setErrorOno($baseDeDatos->getError());
+        }
+        return $resultado;
+    }
+
 }

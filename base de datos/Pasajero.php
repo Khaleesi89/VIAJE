@@ -74,11 +74,13 @@ class Pasajero{
     public function __toString()
     {
         $info="
+        **************************
         DOCUMENTO: {$this->getRdocumento()}
         NOMBRE: {$this->getPnombre()}
         APELLIDO: {$this->getPapellido()}
         TELEFONO: {$this->getPtelefono()}
         ID VIAJE: {$this->getIdviaje()}
+        **************************
         ";
         return $info;
     }
@@ -120,6 +122,39 @@ class Pasajero{
 
 
     //LISTAR PASAJEROS
+
+    public function listarPasajeros($condicion = ""){
+        $arrayPasajeros = null;
+        $baseDeDatos = new BaseDeDatos();
+        $consulta = "Select * from pasajero ";
+        //Si la condición recibida por parámetro no está vacia, se arma un nuevo string para la consulta en la BD:
+        if ($condicion != "") {
+            $consulta = $consulta.' where '.$condicion;
+        }
+
+        $consulta .= " order by papellido ";
+        
+        if ($baseDeDatos->Iniciar()) {
+            if ($baseDeDatos->Ejecutar($consulta)) {				
+                $arrayPasajeros = array();
+                while ($row2 = $baseDeDatos->Registro()) {
+                    $dni = $row2['rdocumento'];
+                    $nombre = $row2['pnombre'];
+                    $apellido = $row2['papellido'];
+                    $telefono = $row2['ptelefono'];
+                    $idViaje = $row2['idviaje'];
+                    $nuevoPasajero = new Pasajero();
+                    $nuevoPasajero->insertarPasajero($dni, $nombre, $apellido, $telefono, $idViaje);
+                    array_push($arrayPasajeros, $nuevoPasajero);
+                }
+             } else {
+                $this->setErrorOno($baseDeDatos->getError());
+            }
+        } else {
+             $this->setErrorOno($baseDeDatos->getError());
+        }	
+        return $arrayPasajeros;
+    }
 
     //INSERTAR PASAJEROS
     public function insertarPasajero() {
