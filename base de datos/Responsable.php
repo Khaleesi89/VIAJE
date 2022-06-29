@@ -70,30 +70,41 @@ class Responsable{
         return $info;
     }
 
+
+    //CARGAR RESPONSABLE
+    public function cargar($nombre, $apellido, $numLicencia, $numEmpleado){		
+        $this->setRnombre($nombre);
+        $this->setRapellido($apellido);
+        $this->setRnumerolicencia($numLicencia);
+        $this->setRnumeroempleado($numEmpleado);
+    }
+
     //LISTAR RESPONSABLE
 
-    public function listarResponsable(){
+    public function listar($condicion){
         $arrayResponsables = null;
         $baseDeDatos = new BaseDeDatos();
-        $consulta = "SELECT * FROM responsable";
-        $consulta .= " ORDER BY rapellido";       
+        $consulta = "SELECT * FROM responsable ";
+        if($condicion != ""){
+            $consulta .= " WHERE " .$condicion;
+        }      
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($consulta)) {				
                 $arrayResponsables = array();
-                while ($row2 = $baseDeDatos->Registro()) {
-                    $nroEmpleado = $row2['rnumeroempleado'];
-                    $nroLicencia = $row2['rnumerolicencia'];
-                    $nombre = $row2['rnombre'];
-                    $apellido = $row2['rapellido'];
+                while ($responsable = $baseDeDatos->Registro()) {
+                    $nroEmpleado = $responsable['rnumeroempleado'];
+                    $nroLicencia = $responsable['rnumerolicencia'];
+                    $nombre = $responsable['rnombre'];
+                    $apellido = $responsable['rapellido'];
                     $nuevoResponsable = new Responsable();
-                    $nuevoResponsable->insertarResponsable($nroEmpleado, $nroLicencia,$nombre, $apellido);
+                    $nuevoResponsable->insertar($nroEmpleado, $nroLicencia,$nombre, $apellido);
                     array_push($arrayResponsables, $nuevoResponsable);
                 }
              } else {
-                $this->setErrorOno($baseDeDatos->getError());
+                $arrayResponsables = $this->setErrorOno($baseDeDatos->getError());
             }
         } else {
-             $this->setErrorOno($baseDeDatos->getError());
+            $arrayResponsables = $this->setErrorOno($baseDeDatos->getError());
         }	
         return $arrayResponsables;
     }
@@ -101,29 +112,28 @@ class Responsable{
 
 
     //INSERTAR RESPONSABLE
-    public function insertarResponsable() {
+    public function insertar() {
         $baseDeDatos = new BaseDeDatos();
         $resultado = false;
         $insertar = "INSERT INTO responsable(rnumeroempleado, rnumerolicencia, rnombre, rapellido) 
-                            VALUES ('".$this->getRnumeroempleado()."',
-                                    '".$this->getRnumerolicencia()."',
-                                    '".$this->getRnombre()."',
-                                    '".$this->getRapellido()."')";
+                            VALUES (".$this->getRnumerolicencia().",
+                                    ".$this->getRnombre().",
+                                    ".$this->getRapellido().")";
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($insertar)) {
                 $resultado = true;
             } else {
-                $this->setErrorOno($baseDeDatos->getError());	
+                $resultado = $this->setErrorOno($baseDeDatos->getError());	
             }
         } else {
-            $this->setErrorOno($baseDeDatos->getError());
+            $resultado = $this->setErrorOno($baseDeDatos->getError());
         }
         return $resultado;
     }
 
     //ELIMINAR RESPONSABLE
 
-    public function eliminarResposable() {
+    public function eliminar() {
         $baseDeDatos = new BaseDeDatos();
         $resultado = false;
         if ($baseDeDatos ->Iniciar()) {
@@ -131,17 +141,17 @@ class Responsable{
             if ($baseDeDatos ->Ejecutar($delete)) {
                 $resultado = true;
             } else {
-                $this->setErrorOno($baseDeDatos ->getError());	
+                $resultado = $this->setErrorOno($baseDeDatos ->getError());	
             }
         } else {
-            $this->setErrorOno($baseDeDatos ->getError());
+            $resultado = $this->setErrorOno($baseDeDatos ->getError());
         }
         return $resultado;
     }
 
     //MODIFICAR RESPONSABLE
 
-    public function modificarResponsable() {
+    public function modificar() {
         $resultado = false; 
         $baseDeDatos = new BaseDeDatos();
         $modificar = "UPDATE responsable SET rnumerolicencia = '".$this->getRnumerolicencia()."',rnombre = '".$this->getRnombre()."',rapellido ='".$this->getRapellido()."'WHERE rdocumento = ". $this->getRnumeroempleado();                                    
@@ -149,10 +159,10 @@ class Responsable{
             if ($baseDeDatos->Ejecutar($modificar)) {
                 $resultado = true;
             } else {
-                $this->setErrorOno($baseDeDatos->getError());
+                $resultado = $this->setErrorOno($baseDeDatos->getError());
             }
         } else {
-            $this->setErrorOno($baseDeDatos->getError());
+            $resultado = $this->setErrorOno($baseDeDatos->getError());
         }
         return $resultado;
     }
@@ -167,18 +177,18 @@ class Responsable{
         $resultado = false;
         if ($baseDeDatos->iniciar()) {
             if ($baseDeDatos->ejecutar($buscando)) {
-                if ($row2 = $baseDeDatos->registro()) {
+                if ($responsable = $baseDeDatos->registro()) {
                     $this->setRnumeroEmpleado($dni);
-                    $this->setRnumeroLicencia($row2['rnumerolicencia']);
-                    $this->setRnombre($row2['rnombre']);
-                    $this->setRapellido($row2['rapellido']);
+                    $this->setRnumeroLicencia($responsable['rnumerolicencia']);
+                    $this->setRnombre($responsable['rnombre']);
+                    $this->setRapellido($responsable['rapellido']);
                     $resultado = true;
                 }
             } else {
-                $this->setErrorOno($baseDeDatos->getError());
+                $resultado = $this->setErrorOno($baseDeDatos->getError());
             }
         } else {
-            $this->setErrorOno($baseDeDatos->getError());
+            $resultado = $this->setErrorOno($baseDeDatos->getError());
         }
         return $resultado;
     }

@@ -249,7 +249,7 @@ class Viaje{
 
     //BUSCAR VIAJE
 
-    public function BuscarViaje($idViaje){
+    public function buscar($idViaje){
         $basedatos = new BaseDeDatos();
         $consulta = "SELECT * FROM viaje WHERE idviaje=".$idViaje;
         $respuesta = false;
@@ -278,7 +278,7 @@ class Viaje{
 
 
     //INSERTAR
-    public function Insertar(){
+    public function insertar(){
         $basedatos = new BaseDeDatos();
         $respuesta = false;
         $consulta = "INSERT INTO viaje(idviaje,vdestino,vcantmaxpasajeros,idempresa,rnumeroempleado,vimporte,tipoAsiento,idayvuelta)
@@ -296,7 +296,7 @@ class Viaje{
     }
 
     //MODIFICAR
-    public function Modificar(){
+    public function modificar(){
         $respuesta = false;
         $basedatos = new BaseDeDatos();
         $consulta = "UPDATE viaje SET vdestino='.$this->getVDestino().', 
@@ -316,7 +316,7 @@ class Viaje{
 
 
     //ELIMINAR
-    public function EliminarViaje(){
+    public function eliminar(){
         $basedatos = new BaseDeDatos();
         $respuesta = false;
         if($basedatos->Iniciar()){

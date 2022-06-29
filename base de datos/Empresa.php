@@ -10,7 +10,7 @@ class Empresa{
 
     public function __construct()
     {
-        $this->idempresa = 0;
+        $this->idempresa = "";
         $this->enombre = "";
         $this->edireccion = "";
         
@@ -58,6 +58,15 @@ class Empresa{
         return $info;
     }
 
+
+    //CARGAR VIAJE 
+
+    public function cargar($identificacion, $nombre, $direccion){		
+        $this->setIdempresa($identificacion);
+        $this->setEnombre($nombre);
+        $this->setEdireccion($direccion);
+    }
+
     //BUSCAR EMPRESAS
 
     public function buscar($empresaCod) {
@@ -66,17 +75,17 @@ class Empresa{
         $resultado = false;
         if ($baseDeDatos->iniciar()) {
             if ($baseDeDatos->ejecutar($buscando)) {
-                if ($row2 = $baseDeDatos->registro()) {
+                if ($empresa = $baseDeDatos->registro()) {
                     $this->setIdEmpresa($empresaCod);
-                    $this->setEnombre($row2['enombre']);
-                    $this->setEdireccion($row2['edireccion']);
+                    $this->setEnombre($empresa['enombre']);
+                    $this->setEdireccion($empresa['edireccion']);
                     $resultado = true;
                 }
             } else {
-                $this->setErrorOno($baseDeDatos->getError());
+                $resultado = $this->setErrorOno($baseDeDatos->getError());
             }
         } else {
-            $this->setErrorOno($baseDeDatos->getError());
+            $resultado = $this->setErrorOno($baseDeDatos->getError());
         }
         return $resultado;
     }
@@ -85,71 +94,71 @@ class Empresa{
     //LISTAR EMPRESAS
 
     public function listar() {
-        $arrayEmpresas = null;
+        $respuesta = false;
         $baseDeDatos = new BaseDeDatos();
         $consulta = "SELECT * FROM empresa";
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($consulta)) {				
-                $arrayEmpresas = array();
-                while ($row2 = $baseDeDatos->Registro()) {
-                    $idEmpresa = $row2['idempresa'];
-                    $nombre = $row2['enombre'];
-                    $direccion = $row2['edireccion'];
+                $respuesta = array();
+                while ($empresa = $baseDeDatos->Registro()) {
+                    $idEmpresa = $empresa['idempresa'];
+                    $nombre = $empresa['enombre'];
+                    $direccion = $empresa['edireccion'];
                     $nuevaEmpresa = new Empresa();
-                    $nuevaEmpresa->insertarEmpresa($idEmpresa, $nombre, $direccion);
-                    $arrayEmpresas[] = $nuevaEmpresa;
+                    $nuevaEmpresa->insertar($idEmpresa, $nombre, $direccion);
+                    array_push($respuesta, $nuevaEmpresa);
                 }
              } else {
-                $this->setErrorOno($baseDeDatos->getError());
+                $respuesta = $this->setErrorOno($baseDeDatos->getError());
             }
         } else {
-             $this->setErrorOno($baseDeDatos->getError());
+            $respuesta = $this->setErrorOno($baseDeDatos->getError());
         }	
-        return $arrayEmpresas;
+        return $respuesta;
     }
 
 
     //INSERTAR EMPRESA
-    public function insertarEmpresa() {
+    public function insertar() {
         $baseDeDatos = new BaseDeDatos();
         $resultado = false;
         $insertar = "INSERT INTO empresa(idempresa, enombre, edireccion) 
-                            VALUES ('".$this->getIdempresa()."','".$this->getEnombre()."','".$this->getEdireccion()."')";
+                            VALUES (".$this->getEnombre().",".$this->getEdireccion().")";
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($insertar)) {
                 $resultado = true;
             } else {
-                $this->setErrorOno($baseDeDatos->getError());	
+                $resultado = $this->setErrorOno($baseDeDatos->getError());	
             }
         } else {
-            $this->setErrorOno($baseDeDatos->getError());
+            $resultado = $this->setErrorOno($baseDeDatos->getError());
         }
         return $resultado;
     }
 
 
     //MODIFICAR EMPRESA
-    public function modificarEmpresa() {
+    public function modificar() {
         $resultado = false; 
         $baseDeDatos = new BaseDeDatos();
-        $update = "UPDATE empresa SET enombre = '".$this->getEnombre()."',
-                                            edireccion = '".$this->getEdireccion()."'
+        $modif = "UPDATE empresa SET enombre = ".$this->getEnombre().",
+                                            edireccion = ".$this->getEdireccion()."
                                             WHERE idempresa = ". $this->getIdempresa();
         if ($baseDeDatos->Iniciar()) {
-            if ($baseDeDatos->Ejecutar($update)) {
-                $resp = true;
+            if ($baseDeDatos->Ejecutar($modif)) {
+                $resultado = true;
             } else {
-                $this->setErrorOno($baseDeDatos->getError());
+                $resultado = $this->setErrorOno($baseDeDatos->getError());
             }
         } else {
-            $this->setErrorOno($baseDeDatos->getError());
+            $resultado = $this->setErrorOno($baseDeDatos->getError());
         }
         return $resultado;
     }
 
     //ELIMINAR EMPRESA
 
-    public function eliminarEmpresa() {
+    public function eliminar() {
         $baseDeDatos = new BaseDeDatos();
         $resultado = false;
         if ($baseDeDatos ->Iniciar()) {
@@ -157,15 +166,15 @@ class Empresa{
             if ($baseDeDatos ->Ejecutar($eliminar)) {
                 $resultado = true;
             } else {
-                $this->setErrorOno($baseDeDatos ->getError());	
+                $resultado = $this->setErrorOno($baseDeDatos ->getError());	
             }
         } else {
-            $this->setErrorOno($baseDeDatos ->getError());
+            $resultado = $this->setErrorOno($baseDeDatos ->getError());
         }
         return $resultado;
     }
 
-    public function eliminarViajes()
+    public function eliminarViajes()   //ver bien como era la funcion en lo de joel
     {
         $listaviagem = $this->listar();
         foreach ($listaviagem as $viaje) {
