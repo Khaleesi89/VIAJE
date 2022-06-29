@@ -188,13 +188,10 @@ class Viaje{
 
 
     //LISTAR VIAJES
-    public function listar($condicion){
+    public function listar(){
         $arregloviaje = null;
         $basedatos = new BaseDeDatos();
         $consultar = "SELECT * FROM viaje";
-        if($condicion != ""){
-		    $consultar .=' where '.$consultar;
-		}
         if($basedatos->Iniciar()){
             if($basedatos->Ejecutar($consultar)){
                 $arregloviaje = array();

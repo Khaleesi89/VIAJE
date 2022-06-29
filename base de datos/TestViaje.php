@@ -146,9 +146,9 @@ $empresa = new Empresa();
                 echo "Ingrese la ID del viaje que quiere eliminar";
                 $eliminar = trim(fgets(STDIN));
                 $viaje = new Viaje;
-                if($viaje->getColeccionPasajeros() != []){                    
-                    foreach($viaje->getColeccionPasajeros() as $p){           
-                        $p->Eliminar();                                       
+                if($viaje->getColecPasajeros() != []){                    
+                    foreach($viaje->getColecPasajeros() as $pasaj){           
+                        $pasaj->Eliminar();                                       
                     }                                                         
                 }                                          
                 $viaje->eliminar($eliminar);
@@ -303,10 +303,10 @@ $empresa = new Empresa();
     }
     
 
-    //MODIFICAR UNA EMPRESA
+    /*//MODIFICAR UNA EMPRESA
     function modificarEmpresa($id){
-        $empresa = new 
-    }
+        $empresa = new Empresa();
+    }*/
 
 
 

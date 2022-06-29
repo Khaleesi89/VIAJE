@@ -130,13 +130,10 @@ class Pasajero{
     //LISTAR PASAJEROS
 
 
-    public function listar($condicion){
+    public function listar(){
 	
         $baseDatos = new BaseDeDatos();
 		$consultaPasajero="SELECT * FROM pasajero ";
-		if($condicion != ""){
-		    $consultaPasajero .= " where ".$condicion;
-		}
         $consultaPasajero .=  "ORDER BY papellido";
 		if($baseDatos->iniciar()){
 			if($baseDatos->ejecutar($consultaPasajero)){

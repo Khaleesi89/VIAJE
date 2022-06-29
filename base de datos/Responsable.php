@@ -81,13 +81,10 @@ class Responsable{
 
     //LISTAR RESPONSABLE
 
-    public function listar($condicion){
+    public function listar(){
         $arrayResponsables = null;
         $baseDeDatos = new BaseDeDatos();
-        $consulta = "SELECT * FROM responsable ";
-        if($condicion != ""){
-            $consulta .= " WHERE " .$condicion;
-        }      
+        $consulta = "SELECT * FROM responsable ";      
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($consulta)) {				
                 $arrayResponsables = array();
