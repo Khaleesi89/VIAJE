@@ -26,6 +26,7 @@ class Viaje{
         $this->vimporte = "";
         $this->tipoAsiento = "";
         $this->idayvuelta = "";
+        
     }
 
 
