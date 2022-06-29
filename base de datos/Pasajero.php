@@ -1,7 +1,7 @@
 <?php
 
-include_once "BaseDeDatos.php";
-include_once "Viaje.php";
+require_once('BaseDeDatos.php');
+require_once('Viaje.php');
 
 class Pasajero{
     private $rdocumento;

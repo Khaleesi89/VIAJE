@@ -1,5 +1,5 @@
 <?php
-include_once "BaseDeDatos.php";
+require_once('BaseDeDatos.php');
 
 class Empresa{
     private $idempresa;

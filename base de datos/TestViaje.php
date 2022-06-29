@@ -1,9 +1,9 @@
 <?php
 
-include_once "Pasajero.php";
-include_once "Responsable.php";
-include_once "Empresa.php";
-include_once "Viaje.php";
+require_once('Empresa.php');
+require_once('Responsable.php');
+require_once('Viaje.php');
+require_once('Pasajero.php');
     
  
 

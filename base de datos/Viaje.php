@@ -1,7 +1,7 @@
 <?php 
-include_once "BaseDeDatos.php";
-include_once "Empresa.php";
-include_once "Responsable.php";
+require_once('BaseDeDatos.php');
+require_once('Empresa.php');
+require_once('Responsable.php');
 
 class Viaje{
     private $idviaje;
