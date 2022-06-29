@@ -135,19 +135,40 @@ $empresa = new Empresa();
             break;
             case 9:
                 //9) Eliminar una empresa
-
+                echo "Ingrese la ID de la empresa que quiere eliminar";
+                $eliminar = trim(fgets(STDIN));
+                $empres = new Empresa;
+                $empres->eliminar($eliminar);
+                echo "La empresa ha sido eliminada";
             break;
             case 10:
                 //10) Eliminar un viaje
-
+                echo "Ingrese la ID del viaje que quiere eliminar";
+                $eliminar = trim(fgets(STDIN));
+                $viaje = new Viaje;
+                if($viaje->getColeccionPasajeros() != []){                    
+                    foreach($viaje->getColeccionPasajeros() as $p){           
+                        $p->Eliminar();                                       
+                    }                                                         
+                }                                          
+                $viaje->eliminar($eliminar);
+                echo "El viaje ha sido eliminado"; 
             break;
             case 11:
                 //11) Eliminar un pasajero
-
+                echo "Ingrese el DNI del pasajero que quiere eliminar";
+                $eliminar = trim(fgets(STDIN));
+                $pasaj = new Pasajero;
+                $pasaj->eliminar($eliminar);
+                echo "El pasajero ha sido eliminado";
             break;
             case 11:
                 //11) Eliminar un responsable
-
+                echo "Ingrese la ID del responsable que quiere eliminar";
+                $eliminar = trim(fgets(STDIN));
+                $respon = new Responsable;
+                $respon->eliminar($eliminar);
+                echo "El responsable ha sido eliminado";
             break;
             case 12:
                 //12) Listar empresas
