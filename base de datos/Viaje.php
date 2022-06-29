@@ -291,7 +291,7 @@ class Viaje{
         $basedatos = new BaseDeDatos();
         $respuesta = false;
         $consulta = "INSERT INTO viaje (vdestino, vcantmaxpasajeros, idempresa, rnumeroempleado, vimporte, tipoAsiento, idayvuelta) 
-                    VALUES (".$this->getVDestino().",".$this->getVCantMaxPasajeros().",".$this->getObjEmpresa()->getIdempresa().",".$this->getObjResponsable()->getNumEmpleado().",".$this->getVImporte().",".$this->getTipoAsiento().",'".$this->setIdayvuelta()."')";
+                    VALUES (".$this->getVDestino().",".$this->getVCantMaxPasajeros().",".$this->getObjEmpresa()()->getIdempresa().",".$this->getObjResponsable()->getNumEmpleado().",".$this->getVImporte().",".$this->getTipoAsiento().",'".$this->getIdayvuelta()."')";
         if($basedatos->Iniciar()){
             if($basedatos->Ejecutar($consulta)){
                 $respuesta = true;

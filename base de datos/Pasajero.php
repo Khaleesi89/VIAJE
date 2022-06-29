@@ -169,7 +169,7 @@ class Pasajero{
         $baseDeDatos = new BaseDeDatos();
         $resultado = false;
         $consulta = "INSERT INTO pasajero (pdocumento, pnombre, papellido, ptelefono, idviaje) 
-        VALUES (".$this->getRdocumento().",".$this->getPnombre().",".$this->getPapellido().",".$this->getPtelefono().",".$this->getObjviaje()->getIdViaje().")";
+        VALUES (".$this->getRdocumento().",".$this->getPnombre().",".$this->getPapellido().",".$this->getPtelefono().",".$this->getObjviaje()()->getIdViaje().")";
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($consulta)) {
                 $resultado = true;
