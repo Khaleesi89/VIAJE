@@ -15,13 +15,13 @@ class BaseDeDatos {
      * vinculadas a la coneccion con el Servidor de BD
      */
     public function __construct(){
-        $this->hostname = "localhost";
-        $this->basedatos = "bdviajes";
-        $this->usuario = "root";
-        $this->clave="";
-        $this->result=0;
-        $this->query="";
-        $this->error="";
+        $this->HOSTNAME = "127.0.0.1";
+        $this->BASEDATOS = "bdviajes";
+        $this->USUARIO = "root";
+        $this->CLAVE="";
+        $this->RESULT=0;
+        $this->QUERY="";
+        $this->ERROR="";
     }
     /**
      * Funcion que retorna una cadena
@@ -69,10 +69,10 @@ class BaseDeDatos {
         $resp  = false;
         unset($this->ERROR);
         $this->QUERY = $consulta;
-        if(  $this->RESULT = mysqli_query($this->CONEXION,$consulta)){
+        if(  $this->RESULT = mysqli_query( $this->CONEXION,$consulta)){
             $resp = true;
         } else {
-            $this->ERROR =mysqli_errno($this->CONEXION).": ". mysqli_error($this->CONEXION);
+            $this->ERROR =mysqli_errno( $this->CONEXION).": ". mysqli_error( $this->CONEXION);
         }
         return $resp;
     }
@@ -110,10 +110,10 @@ class BaseDeDatos {
         unset($this->ERROR);
         $this->QUERY = $consulta;
         if ($this->RESULT = mysqli_query($this->CONEXION,$consulta)){
-            $id = mysqli_insert_id($this->CONEXION);
+            $id = mysqli_insert_id();
             $resp =  $id;
         } else {
-            $this->ERROR =mysqli_errno($this->CONEXION) . ": " . mysqli_error($this->CONEXION);
+            $this->ERROR =mysqli_errno( $this->CONEXION) . ": " . mysqli_error( $this->CONEXION);
            
         }
     return $resp;
@@ -121,4 +121,3 @@ class BaseDeDatos {
     
 }
 ?>
-

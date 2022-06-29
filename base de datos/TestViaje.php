@@ -1,9 +1,9 @@
 <?php
 
-include "Pasajero.php";
-include "ResponsableV.php";
-include "Empresa.php";
-include "Viaje.php";
+include_once "Pasajero.php";
+include_once "Responsable.php";
+include_once "Empresa.php";
+include_once "Viaje.php";
     
  
 
@@ -25,7 +25,7 @@ echo menu();
                         $maxAsientos = trim (fgets(STDIN));
                         $viaje->setVcantmaxpasajeros($maxAsientos);
                         echo "Elija la empresa que corresponde a su viaje : \n";
-                        echo "\n".mostrar($empresa->Listar());
+                        echo "\n".mostrar($empresa->listar());
                         echo "Ingrese la id \n";
                         $id = trim (fgets(STDIN));
                         $esta = $empresa->Buscar($id);
@@ -83,7 +83,7 @@ echo menu();
                             echo "Desea modificar alguno de los viajes ingresados?? \n ";
                             $respuesta = strtoupper(trim (fgets(STDIN)));
                             if($respuesta == "SI"){
-                                echo mostrar($viaje->Listar());
+                                echo mostrar($viaje->listar());
                                 do{
                                     echo "Elija uno de los viajes listados (anotelo con su id) \n";
                                     $idViaje = trim (fgets(STDIN));
@@ -130,7 +130,7 @@ echo menu();
                                     $respuesta = true;
                                 }
                             }while($respuesta);
-                            echo "\n".mostrar($empresa->Listar());
+                            echo "\n".mostrar($empresa->listar());
                             do{
                                 echo "Elija la empresa que desea utilizar (anotarla con su id) \n ";
                                 $codigoEmpresa = trim (fgets(STDIN));
@@ -139,11 +139,11 @@ echo menu();
                             }while($puede!=true);
                             $viaje->setIdEmpresa($empresa->getIdEmpresa());
 
-                            echo "\n".mostrar($responsable->ListarResponsable());
+                            echo "\n".mostrar($responsable->listarResponsable());
                             do{
                                 echo "Elija el responsable que desea para su viaje: \n ";
                                 $empleado = trim (fgets(STDIN));
-                                $puede = $responsable->Buscar($empleado);
+                                $puede = $responsable->buscar($empleado);
                                 echo $puede ? "" : "Número de empleado inválido, intente nuevamente\n ";
                             }while($puede!=true);
                             $viaje->setRNumeroEmpleado($responsable->getRNumeroEmpleado());
@@ -186,7 +186,7 @@ echo menu();
                         echo "Desea ver todos los viajes existentes? (S / N) \n";
                         $answer = strtoupper(trim (fgets(STDIN)));
                         if($answer== "S"){
-                            echo mostrar($viaje->Listar());
+                            echo mostrar($viaje->listar());
                         }
                     
             break;
@@ -204,11 +204,11 @@ echo menu();
             break;
             case '6':
                      // 6)Modificar una empresa existente
-                        echo "\n".mostrar($empresa->Listar());
+                        echo "\n".mostrar($empresa->listar());
                         do{
                             echo "Elija una empresa de las listadas para realizar las modificaciones (por su ID): \n ";
                             $id = trim (fgets(STDIN));
-                            $puede = $empresa->Buscar($id);
+                            $puede = $empresa->buscar($id);
                             echo $puede ? "" : "Número de empresa inválido, verifiquelo\n ";
                         }while($puede!=true);
                         echo "Ingrese el nuevo nombre de la empresa: \n";
@@ -223,11 +223,11 @@ echo menu();
             case '7':
                      // 7)Eliminar una empresa
                     
-                        echo "\n".mostrar($empresa->Listar());
+                        echo "\n".mostrar($empresa->listar());
                         do{
                             echo "Elija una empresa de la lista para eliminar (identificada con un ID): \n ";
                             $id = trim (fgets(STDIN));
-                            $puede = $empresa->Buscar($id);
+                            $puede = $empresa->buscar($id);
                             echo $puede ? "" : "no existe, verifiquelo nuevamente\n ";
                         }while($puede!=true);
                         $empresa->eliminarViajes();                                    
@@ -239,7 +239,7 @@ echo menu();
                         echo "Desea ver todas las empresas existentes? (S / N) \n";
                         $answer = strtoupper(trim (fgets(STDIN)));
                         if($answer== "S"){
-                            echo mostrar($viaje->Listar());
+                            echo mostrar($viaje->listar());
                         }
             break;
             case '9':

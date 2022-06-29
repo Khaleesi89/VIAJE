@@ -185,7 +185,7 @@ class Viaje{
 
 
     //LISTAR VIAJES
-    public function Listar(){
+    public function listar(){
         $arregloviaje = null;
         $basedatos = new BaseDeDatos();
         $consultar = "SELECT * FROM viaje";
