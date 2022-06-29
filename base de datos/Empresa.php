@@ -165,7 +165,18 @@ class Empresa{
         return $resultado;
     }
 
-
+    public function eliminarViajes()
+    {
+        $listaviagem = $this->listar();
+        foreach ($listaviagem as $viaje) {
+            $listaPasaj = $viaje->listarPasaj();
+            foreach ($listaPasaj as $pasajero) {
+                $pasajero->eliminarPasajero();
+            }
+            $viaje->EliminarViaje();
+        }
+       
+    }
 
     
 }

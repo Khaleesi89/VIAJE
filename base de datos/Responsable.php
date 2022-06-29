@@ -72,18 +72,11 @@ class Responsable{
 
     //LISTAR RESPONSABLE
 
-    public function listarResponsable($condicion){
-        if($condicion == ""){
-            $arrayPasajeros = null;
-            $baseDeDatos = new BaseDeDatos();
-        }
-        $consulta = "Select * from responsable ";
-        if ($condicion != "") {
-            $consulta = $consulta.' where '.$condicion;
-        }
-
-        $consulta .= " ***************** ";
-        
+    public function listarResponsable(){
+        $arrayResponsables = null;
+        $baseDeDatos = new BaseDeDatos();
+        $consulta = "SELECT * FROM responsable";
+        $consulta .= " ORDER BY rapellido";       
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($consulta)) {				
                 $arrayResponsables = array();
@@ -102,7 +95,7 @@ class Responsable{
         } else {
              $this->setErrorOno($baseDeDatos->getError());
         }	
-        return $arrayPasajeros;
+        return $arrayResponsables;
     }
     
 
