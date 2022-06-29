@@ -193,4 +193,27 @@ class Responsable{
         return $resultado;
     }
 
+
+    //SACAR EL ID DE RESPONSABLE
+
+    public function idResponsablencremento(){
+        $baseDeDatos = new BaseDeDatos();
+        $respuesta = null;
+        $consulta = "SELECT `AUTO_INCREMENT`
+                    FROM  INFORMATION_SCHEMA.TABLES
+                    WHERE TABLE_SCHEMA = 'bdviajes'
+                    AND   TABLE_NAME   = 'responsable';";
+        if($baseDeDatos->Iniciar()){
+            if($baseDeDatos->Ejecutar($consulta)){
+                if($row2=$baseDeDatos->Registro()){
+                    $respuesta = $row2['AUTO_INCREMENT'];
+                }
+            }   else {
+                $this->setErrorOno($baseDeDatos->getError());
+            }
+        }   else{
+            $this->setErrorOno($baseDeDatos->getError());
+        }
+        return $respuesta;
+    }
 }

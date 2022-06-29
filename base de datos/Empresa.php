@@ -187,5 +187,28 @@ class Empresa{
        
     }
 
+
+    //sacar el nro de id
+
+    public function idempresaIncremento(){
+        $baseDeDatos = new BaseDeDatos();
+        $respuesta = null;
+        $consulta = "SELECT `AUTO_INCREMENT`
+                    FROM  INFORMATION_SCHEMA.TABLES
+                    WHERE TABLE_SCHEMA = 'bdviajes'
+                    AND   TABLE_NAME   = 'empresa';";
+        if($baseDeDatos->Iniciar()){
+            if($baseDeDatos->Ejecutar($consulta)){
+                if($row2=$baseDeDatos->Registro()){
+                    $respuesta = $row2['AUTO_INCREMENT'];
+                }
+            }   else {
+                $respuesta = $this->setErrorOno($baseDeDatos->getError());
+            }
+        } else{
+            $respuesta = $this->setErrorOno($baseDeDatos->getError());
+        }
+        return $respuesta;
+    }
     
 }
