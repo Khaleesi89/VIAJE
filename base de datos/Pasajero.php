@@ -102,7 +102,7 @@ class Pasajero{
 
     public function buscar($dni) {
         $baseDeDatos = new BaseDeDatos();
-        $buscando = "SELECT * FROM pasajero WHERE rdocumento = ".$dni;
+        $buscando = "SELECT * FROM pasajero WHERE rdocumento = $dni";
         $resultado = false;
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($buscando)) {
@@ -111,12 +111,13 @@ class Pasajero{
                     $this->setPnombre($pasajero['pnombre']);
                     $this->setPapellido($pasajero['papellido']);
                     $this->setPtelefono($pasajero['ptelefono']);
+                    $idViaje = $pasajero['idviaje'];
                     $objViaje = new Viaje();
-                    $objViaje->buscar($pasajero['idviaje']);
-                    $this->setObjViaje($objViaje);
-                    $resultado = true;
+                    if($objViaje->buscar($idViaje)){
+                        $this->setObjViaje($objViaje);
+                        $resultado = true;
+                    }
                 }
-               
             } else {
                 $resultado = $this->setErrorOno($baseDeDatos->getError());
             }
@@ -131,10 +132,9 @@ class Pasajero{
 
 
     public function listar(){
-	
+        $resultado = null;
         $baseDatos = new BaseDeDatos();
-		$consultaPasajero="SELECT * FROM pasajero ";
-        $consultaPasajero .=  "ORDER BY papellido";
+		$consultaPasajero= " SELECT * FROM pasajero ";
 		if($baseDatos->Iniciar()){
 			if($baseDatos->Ejecutar($consultaPasajero)){
                 $resultado = [];				
@@ -143,11 +143,16 @@ class Pasajero{
 					$nombre = $pasajero['pnombre'];
 					$apellido = $pasajero['papellido'];
 					$telefono = $pasajero['ptelefono'];
-					$objPasajero = new Pasajero();
+                    $idViaje = $pasajero['idviaje'];
                     $objViaje = new Viaje();
-                    $objViaje->buscar($pasajero['idviaje']);
-					$objPasajero->cargar($nombre, $apellido, $documento, $telefono, $objViaje);
-                    array_push($resultado, $objPasajero);
+                    if($objViaje->buscar($idViaje)){
+
+                    }else{
+                        $objViaje = null;
+                    }
+                    $viajero = new Pasajero();
+					$viajero->cargar($nombre, $apellido, $documento, $telefono, $objViaje);
+                    array_push($resultado, $viajero);
 				}
 		 	}else{
                 $resultado =$this->setErrorOno($baseDatos->getError());
@@ -165,8 +170,9 @@ class Pasajero{
     public function insertar() {
         $baseDeDatos = new BaseDeDatos();
         $resultado = false;
-        $consulta = "INSERT INTO pasajero (pdocumento, pnombre, papellido, ptelefono, idviaje) 
-        VALUES (".$this->getRdocumento().",".$this->getPnombre().",".$this->getPapellido().",".$this->getPtelefono().",".$this->getObjviaje()()->getIdViaje().")";
+        $consulta ="INSERT INTO pasajero VALUES ({$this->getRdocumento()}, '{$this->getPnombre()}', '{$this->getPapellido()}', {$this->getPtelefono()}, $idviaje)";
+         //"INSERT INTO pasajero (pdocumento, pnombre, papellido, ptelefono, idviaje) 
+        //VALUES (".$this->getRdocumento().",".$this->getPnombre().",".$this->getPapellido().",".$this->getPtelefono().",".$this->getObjviaje()()->getIdViaje().")";
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($consulta)) {
                 $resultado = true;
@@ -184,9 +190,9 @@ class Pasajero{
     public function eliminar($dni) {
         $baseDeDatos = new BaseDeDatos();
         $resultado = false;
+        $elimina = "DELETE FROM pasajero WHERE rdocumento = .$dni";
         if ($baseDeDatos ->Iniciar()) {
-            $dni = "DELETE FROM pasajero WHERE rdocumento = ".$this->getRdocumento();
-            if ($baseDeDatos ->Ejecutar($dni)) {
+            if ($baseDeDatos ->Ejecutar($elimina)) {
                 $resultado = true;
             } else {
                 $resultado = $this->setErrorOno($baseDeDatos ->getError());	
@@ -202,8 +208,14 @@ class Pasajero{
     public function modificar() {
         $resultado = false; 
         $baseDeDatos = new BaseDeDatos();
-        $modif = "UPDATE pasajero SET pnombre='.$this->getPNombre()', papellido='.$this->getPApellido().', 
-        ptelefono =.$this->getPTelefono()., idviaje= .$this->getIdViaje(). WHERE rdocumento=.$this->getRDocumento().";
+        $modif = "UPDATE pasajero 
+        SET 
+        pnombre = '".$this->getPnombre()."', 
+        papellido ='".$this->getPapellido()."', 
+        ptelefono = ".$this->getPtelefono().", 
+        idviaje = ".$this->getObjviaje()->getIdViaje()." WHERE pdocumento = ".$this->getRDocumento();
+        //"UPDATE pasajero SET pnombre='.$this->getPNombre()', papellido='.$this->getPApellido().', 
+        //ptelefono =.$this->getPTelefono()., idviaje= .$this->getIdViaje(). WHERE rdocumento=.$this->getRDocumento().";
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($modif)) {
                 $resultado = true;
