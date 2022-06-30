@@ -71,11 +71,11 @@ class Empresa{
 
     public function buscar($empresaCod) {
         $baseDeDatos = new BaseDeDatos();
-        $buscando = "SELECT * FROM empresa WHERE idempresa = ".$empresaCod;
+        $buscando = "SELECT * FROM empresa WHERE idempresa = .$empresaCod";
         $resultado = false;
-        if ($baseDeDatos->iniciar()) {
-            if ($baseDeDatos->ejecutar($buscando)) {
-                if ($empresa = $baseDeDatos->registro()) {
+        if ($baseDeDatos->Iniciar()) {
+            if ($baseDeDatos->Ejecutar($buscando)) {
+                if ($empresa = $baseDeDatos->Registro()) {
                     $this->setIdEmpresa($empresaCod);
                     $this->setEnombre($empresa['enombre']);
                     $this->setEdireccion($empresa['edireccion']);
@@ -94,18 +94,15 @@ class Empresa{
     //LISTAR EMPRESAS
 
     public function listar() {
-        $respuesta = false;
+        $respuesta = null;
         $baseDeDatos = new BaseDeDatos();
         $consulta = "SELECT * FROM empresa";
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($consulta)) {				
                 $respuesta = array();
                 while ($empresa = $baseDeDatos->Registro()) {
-                    $idEmpresa = $empresa['idempresa'];
-                    $nombre = $empresa['enombre'];
-                    $direccion = $empresa['edireccion'];
                     $nuevaEmpresa = new Empresa();
-                    $nuevaEmpresa->insertar($idEmpresa, $nombre, $direccion);
+                    $nuevaEmpresa->buscar($empresa["idempresa"]);
                     array_push($respuesta, $nuevaEmpresa);
                 }
              } else {
@@ -121,8 +118,8 @@ class Empresa{
     //INSERTAR EMPRESA
     public function insertar() {
         $baseDeDatos = new BaseDeDatos();
-        $resultado = false;
-        $insertar = "INSERT INTO empresa(idempresa, enombre, edireccion) 
+        $resultado = null;
+        $insertar = "INSERT INTO empresa (enombre, edireccion) 
                             VALUES (".$this->getEnombre().",".$this->getEdireccion().")";
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($insertar)) {

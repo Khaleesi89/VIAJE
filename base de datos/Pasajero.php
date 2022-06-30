@@ -104,9 +104,9 @@ class Pasajero{
         $baseDeDatos = new BaseDeDatos();
         $buscando = "SELECT * FROM pasajero WHERE rdocumento = ".$dni;
         $resultado = false;
-        if ($baseDeDatos->iniciar()) {
-            if ($baseDeDatos->ejecutar($buscando)) {
-                if ($pasajero = $baseDeDatos->registro()) {
+        if ($baseDeDatos->Iniciar()) {
+            if ($baseDeDatos->Ejecutar($buscando)) {
+                if ($pasajero = $baseDeDatos->Registro()) {
                     $this->setRdocumento($dni);
                     $this->setPnombre($pasajero['pnombre']);
                     $this->setPapellido($pasajero['papellido']);
@@ -135,10 +135,10 @@ class Pasajero{
         $baseDatos = new BaseDeDatos();
 		$consultaPasajero="SELECT * FROM pasajero ";
         $consultaPasajero .=  "ORDER BY papellido";
-		if($baseDatos->iniciar()){
-			if($baseDatos->ejecutar($consultaPasajero)){
+		if($baseDatos->Iniciar()){
+			if($baseDatos->Ejecutar($consultaPasajero)){
                 $resultado = [];				
-				while($pasajero=$baseDatos->registro()){	
+				while($pasajero=$baseDatos->Registro()){	
 				    $documento = $pasajero['rdocumento'];
 					$nombre = $pasajero['pnombre'];
 					$apellido = $pasajero['papellido'];

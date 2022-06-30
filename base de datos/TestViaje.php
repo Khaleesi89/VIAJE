@@ -1,5 +1,5 @@
 <?php
-
+require_once("BaseDeDatos.php");
 require_once('Empresa.php');
 require_once('Responsable.php');
 require_once('Viaje.php');
@@ -224,18 +224,26 @@ $empresa = new Empresa();
 
     function crearEmpresa(){
         echo "Ingrese los datos de la empresa \n";
+        $empresa = new Empresa();
         echo "Ingrese el nombre: \n";
         $name= strtoupper(trim (fgets(STDIN)));
         echo "Ingrese la direcciòn: \n";
         $direccion= strtoupper(trim (fgets(STDIN)));
-        $empresa = new Empresa();
-        $id = $empresa->idempresaIncremento();
-        $empresa->cargar($id,$name,$direccion);
-        $empresa->insertar();
-        return $empresa;
+        $empresa->cargar (null,$name,$direccion);
+        //$id = $empresa->idempresaIncremento();
+        //$empresa->cargar($id,$name,$direccion);
+        //echo $empresa;
+        //die();
+        $result = $empresa->insertar();
+        if($result){
+            echo "Se ha ingresado la empresa correctamente \n";
+            $empresa->buscar(count($empresa->listar("")));
+        }else{
+            echo "No se ha ingresado la empresa correctamente \n";
+        }
+        return $result;
 
     }
-
 
     //FUNCION PARA CREAR UN VIAJE
     function crearViaje(){

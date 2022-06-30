@@ -172,9 +172,9 @@ class Responsable{
         $baseDeDatos = new BaseDeDatos();
         $buscando = "SELECT * FROM responsable WHERE rdocumento = ".$dni;
         $resultado = false;
-        if ($baseDeDatos->iniciar()) {
-            if ($baseDeDatos->ejecutar($buscando)) {
-                if ($responsable = $baseDeDatos->registro()) {
+        if ($baseDeDatos->Iniciar()) {
+            if ($baseDeDatos->Ejecutar($buscando)) {
+                if ($responsable = $baseDeDatos->Registro()) {
                     $this->setRnumeroEmpleado($dni);
                     $this->setRnumeroLicencia($responsable['rnumerolicencia']);
                     $this->setRnombre($responsable['rnombre']);
