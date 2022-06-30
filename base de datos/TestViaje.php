@@ -31,16 +31,6 @@ $empresa = new Empresa();
         return $menu;
     }
 
-    //MUESTRA TODA LA INFO CARGADA EN UN ARRAY DE CUALQUIER CLASE
-
-    function mostrar($colex){
-        $str = "";
-        foreach($colex as $obj){
-            $str .= $obj."\n";
-        }
-        return $str;
-    }
-
 
     //PROGRAMA PRINCIPAL
 
@@ -53,11 +43,10 @@ $empresa = new Empresa();
                 //1) Agregar una empresa
                 $salida = false; 
                 do{
-                    $empresa = crearEmpresa();
-                    echo "Desea seguir cargando empresas? SI o NO";
+                    crearEmpresa();
+                    echo "Desea seguir cargando empresas? SI o NO \n";
                     $resp = strtoupper(trim(fgets(STDIN)));
                     if($resp == "SI"){
-                        $empresa = crearEmpresa();
                         $salida = true;   
                     }else{
                         $salida = false;
@@ -116,6 +105,18 @@ $empresa = new Empresa();
             break;
             case 5:
                 //4) Modificar una empresa existente
+                echo "Elija de la siguiente lista la que desea eliminar (identificada con un Id)";
+                $empresa = new Empresa;
+                echo mostrar($empresa->listar());
+                $opcion = trim(fgets(STDIN));
+                $elegida = $empresa->buscar($opcion);
+                echo "Ingrese el nuevo nombre: ";
+                $name = strtoupper(trim(fgets(STDIN)));
+                echo "Ingrese la nueva direccion: ";
+                $address = strtoupper(trim(fgets(STDIN)));
+                $elegida->setEnombre($name);
+                $elegida->setEdireccion($address);
+
 
             break;
 
@@ -126,6 +127,17 @@ $empresa = new Empresa();
 
             case 7:
                 //7) Modificar un pasajero
+                echo "Elija de la siguiente lista al pasajero que desea eliminar (identificada con un Id)";
+                $pasajero = new Pasajero;
+                echo mostrar($pasajero->listar());
+                $opcion = trim(fgets(STDIN));
+                $elegido = $pasajero->buscar($opcion);
+                echo "Ingrese el nuevo nombre: ";
+                $name = strtoupper(trim(fgets(STDIN)));
+                echo "Ingrese la nueva direccion: ";
+                $address = strtoupper(trim(fgets(STDIN)));
+                $elegido->setEnombre($name);
+                $elegido->setEdireccion($address);
 
             break;
 
@@ -136,16 +148,18 @@ $empresa = new Empresa();
             case 9:
                 //9) Eliminar una empresa
                 echo "Ingrese la ID de la empresa que quiere eliminar";
-                $eliminar = trim(fgets(STDIN));
                 $empres = new Empresa;
+                echo mostrar($empresa->listar());
+                $eliminar = trim(fgets(STDIN));
                 $empres->eliminar($eliminar);
                 echo "La empresa ha sido eliminada";
             break;
             case 10:
                 //10) Eliminar un viaje
                 echo "Ingrese la ID del viaje que quiere eliminar";
-                $eliminar = trim(fgets(STDIN));
                 $viaje = new Viaje;
+                echo mostrar($viaje->listar());
+                $eliminar = trim(fgets(STDIN));
                 if($viaje->getColecPasajeros() != []){                    
                     foreach($viaje->getColecPasajeros() as $pasaj){           
                         $pasaj->Eliminar();                                       
@@ -157,38 +171,40 @@ $empresa = new Empresa();
             case 11:
                 //11) Eliminar un pasajero
                 echo "Ingrese el DNI del pasajero que quiere eliminar";
-                $eliminar = trim(fgets(STDIN));
                 $pasaj = new Pasajero;
+                echo mostrar($pasaj->listar());
+                $eliminar = trim(fgets(STDIN));
                 $pasaj->eliminar($eliminar);
                 echo "El pasajero ha sido eliminado";
             break;
             case 11:
                 //11) Eliminar un responsable
                 echo "Ingrese la ID del responsable que quiere eliminar";
-                $eliminar = trim(fgets(STDIN));
                 $respon = new Responsable;
+                echo mostrar($respon->listar());
+                $eliminar = trim(fgets(STDIN));
                 $respon->eliminar($eliminar);
                 echo "El responsable ha sido eliminado";
             break;
             case 12:
                 //12) Listar empresas
                 $empresa = new Empresa;
-                echo $empresa->listar();
+                echo mostrar($empresa->listar());
             break;
             case 13:
                 //13) Listar los viajes
                 $viaje = new Viaje;
-                echo $viaje->listar();
+                echo mostrar($viaje->listar());
             break;
             case 14:
                 //14) Listar los pasajeros
                 $pasaj = new Pasajero;
-                echo $pasaj->listar();
+                echo mostrar($pasaj->listar());
             break;
             case 15:
                 //15) Listar los responsables
                 $responsab = new Responsable;
-                echo $responsab->listar();
+                echo mostrar($responsab->listar());
             break;
 
             default:
@@ -215,6 +231,7 @@ $empresa = new Empresa();
         $empresa = new Empresa();
         $id = $empresa->idempresaIncremento();
         $empresa->cargar($id,$name,$direccion);
+        $empresa->insertar();
         return $empresa;
 
     }
@@ -284,8 +301,19 @@ $empresa = new Empresa();
                 echo "Ingrese telefono celular: \n";
                 $telefono= trim (fgets(STDIN));
                 $pasajero = new Pasajero($nombre,$apellido,$dni,$telefono);         
+                $resp = $pasajero->buscar($dni);
+                if($resp){
+                    cambioViaje($pasajero);
+                }
+                $respuesta = $pasajero->insertar();
+                if($respuesta){
+                    echo "El pasajero ha sido insertado en la base de datos \n ";
+                }
+
+
                 return $pasajero;
     }
+
 
 
     //FUNCION PARA CREAR UN RESPONSABLE
@@ -298,18 +326,26 @@ $empresa = new Empresa();
         $licencia= trim (fgets(STDIN));
         $responsable = new Responsable();
         $idempleado = $responsable->idResponsablencremento();
-        $responsable->cargar($nombre,$apellido,$licencia,$idempleado);         
+        $responsable->cargar($nombre,$apellido,$licencia,$idempleado); 
+        $responsable->insertar();
         return $responsable;
     }
     
 
-    /*//MODIFICAR UNA EMPRESA
-    function modificarEmpresa($id){
-        $empresa = new Empresa();
-    }*/
+    //FUNCION PARA CAMBIAR DE VIAJE AL PASAJERO
 
+    function cambioViaje($viaje, $pasajero){
+        
+    }
 
-
+    //FUNCION PARA MOSTRAR ARRAYS
+    function mostrar($colex){
+        $str = "";
+        foreach($colex as $obj){
+            $str .= $obj."\n";
+        }
+        return $str;
+    }
 
     //MODIFICAR UN VIAJE
 
