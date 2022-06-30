@@ -76,16 +76,16 @@ class Empresa{
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($buscando)) {
                 if ($empresa = $baseDeDatos->Registro()) {
-                    $this->setIdEmpresa($empresaCod);
+                    $this->setIdEmpresa($empresa['idempresa']);
                     $this->setEnombre($empresa['enombre']);
                     $this->setEdireccion($empresa['edireccion']);
                     $resultado = true;
                 }
             } else {
-                $resultado = $this->setErrorOno($baseDeDatos->getError());
+                $this->setErrorOno($baseDeDatos->getError());
             }
         } else {
-            $resultado = $this->setErrorOno($baseDeDatos->getError());
+               $this->setErrorOno($baseDeDatos->getError());
         }
         return $resultado;
     }
@@ -101,12 +101,16 @@ class Empresa{
             if ($baseDeDatos->Ejecutar($consulta)) {				
                 $respuesta = array();
                 while ($empresa = $baseDeDatos->Registro()) {
+                    $idempresa = $empresa['idempresa'];
+                    $enombre = $empresa['enombre'];
+                    $edireccion = $empresa['edireccion'];
                     $nuevaEmpresa = new Empresa();
-                    $nuevaEmpresa->buscar($empresa["idempresa"]);
+                    $nuevaEmpresa->cargar($idempresa,$enombre,$edireccion);
                     array_push($respuesta, $nuevaEmpresa);
                 }
              } else {
                 $respuesta = $this->setErrorOno($baseDeDatos->getError());
+                //ver aqui
             }
         } else {
             $respuesta = $this->setErrorOno($baseDeDatos->getError());
@@ -118,9 +122,8 @@ class Empresa{
     //INSERTAR EMPRESA
     public function insertar() {
         $baseDeDatos = new BaseDeDatos();
-        $resultado = null;
-        $insertar = "INSERT INTO empresa (enombre, edireccion) 
-                            VALUES (".$this->getEnombre().",".$this->getEdireccion().")";
+        $resultado = false;
+        $insertar = "INSERT INTO empresa VALUES({$this->getIdempresa()}, '{$this->getEnombre()}', '{$this->getEdireccion()}')";
         if ($baseDeDatos->Iniciar()) {
             if ($baseDeDatos->Ejecutar($insertar)) {
                 $resultado = true;
@@ -158,8 +161,9 @@ class Empresa{
     public function eliminar() {
         $baseDeDatos = new BaseDeDatos();
         $resultado = false;
+        $eliminar = "DELETE FROM empresa WHERE idempresa = {$this->getIdempresa()}";
         if ($baseDeDatos ->Iniciar()) {
-            $eliminar = "DELETE FROM empresa WHERE idempresa = ".$this->getIdempresa();
+    
             if ($baseDeDatos ->Ejecutar($eliminar)) {
                 $resultado = true;
             } else {
