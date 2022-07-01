@@ -229,7 +229,7 @@ $empresa = new Empresa();
         $name= strtoupper(trim (fgets(STDIN)));
         echo "Ingrese la direcciòn: \n";
         $direccion= strtoupper(trim (fgets(STDIN)));
-        $empresa->cargar (null,$name,$direccion);
+        $empresa->cargar(null,$name,$direccion);
         //$id = $empresa->idempresaIncremento();
         //$empresa->cargar($id,$name,$direccion);
         //echo $empresa;
